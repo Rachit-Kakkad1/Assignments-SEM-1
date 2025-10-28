@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in to your account</title>
+    <link rel="stylesheet" href="signin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="login-container">
+        <div class="login-card">
+            <h1>Sign in to your account</h1>
+            
+            <form>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email">
+                </div>
+                
+                <div class="form-group">
+                    <div class="password-header">
+                        <label for="password">Password</label>
+                        <a href="#" class="forgot-link">Forgot your password?</a>
+                    </div>
+                    <input type="password" id="password" name="password">
+                </div>
+                
+                <div class="form-group remember-me">
+                    <input type="checkbox" id="remember" name="remember" checked>
+                    <label for="remember">Remember me on this device</label>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Sign in</button>
+            </form>
+            
+            <div class="divider">
+                <span>OR</span>
+            </div>
+            
+            <div class="social-logins">
+                <button type="button" class="btn btn-secondary">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE3LjYzMSAzLjg3NDExQzE3LjIzNTkgMi4xOTMxMSAxNS44MDY4IDAuNzY0MDExIDE0LjEyNTkgMEg5SDBWMTdIMTRDMTUuODQxOCAxNyAxNy4zMTYzIDE1LjUyODggMTcuNzQ4OCAxMy44Mjk3QzE3LjkxNDQgMTMuMjI0MyAxOCAxMi41OTA0IDE4IDExLjkzNzNDMTggMTAuNzc4NCAxNy44MTA3IDkuNjczNDEgMTcuNjMxIDguOTYyNjFDMTcuODEwNyA4LjI1MTgxIDE4IDcuMjIxNjEgMTggNi4wNjI3QzE4IDUuNDAwOTEgMTcuOTE0NCA0LjcyNDUxIDE3Ljc0ODggNC4xMTk3MUwxNy42MzEgMy44NzQxMVoiIGZpbGw9IiM0Mjg1RjQiLz4KPHBhdGggZD0iTTE4IDZIMFYxMkgxOEMxOCA5Ljc5MDkgMTggNiAxOCA2WiIgZmlsbD0iI0VBNDMzNSIvPgo8cGF0aCBkPSJNMTggMEgwVjZIMThDMTggMy43OTA5MSAxOCAwIDE4IDBaIiBmaWxsPSIjRkJCQzA0Ii8+CjxwYXRoIGQ9Ik0xOCA5LjAwMDAxSDBWMTIuMDAwMUgxOEMxOCAxMC45NDUyIDE4IDkuMDAwMDEgMTggOS4wMDAwMVoiIGZpbGw9IiNFQTQzMzUiLz4KPHBhdGggZD0iTTAgMTJWMThIMTRDMTUuODQxOCAxOCAxNy4zMTYzIDE2LjUyODggMTcuNzQ4OCAxNC44Mjk3QzE3LjkxNDQgMTQuMjI0MyAxOCAxMy41OTA0IDE4IDEyLjkzNzNDMTggMTIgMTQgMTIgMCAxMloiIGZpbGw9IiM0Mjg1RjQiLz4KPHBhdGggZD0iTTAgMFY2SDE0LjEyNTlDMTUuODA2OCAyLjIzNTkxIDE3LjIzNTkgMC44MDY4MTQgMTguMDAwMSAwSDlIMFoiIGZpbGw9IiNGQkJDMDQiLz4KPHBhdGggZD0iTTE4IDBDMTcuMjM1OSAwLjgxMDYxNCAxNS44MDY4IDIuMjM1OTEgMTQuMTI1OSAzLjk5OTk4SDkuMDAwMDZIMFYwSDE4WiIgZmlsbD0iIzE2N0NCMCIvPgo8cGF0aCBkPSJNMCA2VjEySDE4QzE4IDkuNzkwOTEgMTggNiAxOCA2SDBaIiBmaWxsPSIjRkZGRkZGIiBvcGFjaXR5PSIwLjA1Ii8+CjxwYXRoIGQ9Ik0zLjE2MTE5IDguNzMyMDFMMi4xOTY3OCA5LjcxOTI4TDUuNTc2MjggMTIuNTY1MUw2Ljc3ODAyIDExLjg0MDFMOS4zNDMyMiA5LjY5MTExTDEwLjQzMzcgOC43ODUwNEw2LjYzNTM0IDUuNDM5MDlMNS4zNDUyOCA2LjMxNTc3TDMuMTYxMTkgOC43MzIwMVoiIGZpbGw9IiNGRkZGRkYiLz4KPC9zdmc+Cg==" alt="Google icon">
+                    Sign in with Google
+                </button>
+                <button type="button" class="btn btn-secondary">Sign in with passkey</button>
+                <button type="button" class="btn btn-secondary">Sign in with SSO</button>
+            </div>
+            
+            <div class="create-account">
+                New to Stripe? <a href="#">Create account</a>
+            </div>
+        </div>
+        
+        <div class="footer-note">
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M8 1a3 3 0 00-3 3v2H4a1 1 0 00-1 1v6a1 1 0 001 1h8a1 1 0 001-1V7a1 1 0 00-1-1h-1V4a3 3 0 00-3-3zM5 6h6v5H5V6zm2-2a1 1 0 012 0v2H7V4z" fill="#6B7280"></path></svg>
+            <p>If you use two-step authentication, <a href="#">keep your backup code in a secure place</a>.</p>
+        </div>
+    </div>
+
+</body>
+</html>

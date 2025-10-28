@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tesla | Current Offers</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      color: #171a20;
+      background-color: #fff;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 40px;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+    }
+
+    nav {
+      display: flex;
+      gap: 24px;
+      font-size: 14px;
+    }
+
+    nav a {
+      color: #171a20;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .icons {
+      display: flex;
+      gap: 16px;
+      font-size: 18px;
+    }
+
+    .offers-section {
+      text-align: center;
+      margin-top: 60px;
+    }
+
+    .offers-section h1 {
+      font-size: 48px;
+      margin-bottom: 8px;
+    }
+
+    .offers-section h2 {
+      font-size: 20px;
+      font-weight: 500;
+      color: #555;
+      margin-top: 0;
+    }
+
+    .offers-section p {
+      font-size: 13px;
+      color: #777;
+      margin-top: 8px;
+    }
+
+    .content, .model-offer {
+      display: flex;
+      justify-content: space-between;
+      align-items: stretch;
+      margin: 60px auto;
+      max-width: 1500px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #e0e0e0;
+      min-height: 500px;
+      height: 500px;
+    }
+
+    .left, .model-info {
+      width: 50%;
+      padding: 60px;
+      background-color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .right, .model-img {
+      width: 50%;
+      overflow: hidden;
+    }
+
+    .right {
+      background-image: url('https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Offers-All-Teslas.png');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .model-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .model-info h4 {
+      font-size: 18px;
+      color: #5c5e62;
+      margin-bottom: 10px;
+    }
+
+    .model-info h1 {
+      font-size: 56px;
+      margin: 0 0 30px;
+    }
+
+    .model-buttons {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+
+    .model-buttons a {
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      border-radius: 6px;
+      padding: 12px 28px;
+      transition: 0.3s;
+    }
+
+    .btn-blue {
+      background-color: #3e6ae1;
+      color: #fff;
+    }
+
+    .btn-blue:hover {
+      background-color: #3458b5;
+    }
+
+    .btn-white {
+      background-color: #fff;
+      border: 1px solid #d0d0d0;
+      color: #171a20;
+    }
+
+    .btn-white:hover {
+      background-color: #f2f2f2;
+    }
+
+    .financing {
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    .financing del {
+      color: #999;
+      margin-right: 6px;
+    }
+
+    .financing strong {
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .financing small {
+      font-size: 10px;
+      vertical-align: top;
+    }
+
+    .prequalified {
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .prequalified a {
+      color: #3e6ae1;
+      text-decoration: none;
+    }
+
+    .offer-section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      width: 100%;
+      max-width: 1500px;
+      height: 600px;
+      margin: 40px auto;
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .offer-left {
+      flex: 1;
+      padding: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .offer-right {
+      flex: 1;
+      height: 100%;
+    }
+
+    .offer-right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 12px;
+      color: #999;
+    }
+
+    @media (max-width: 900px) {
+      .content, .model-offer, .offer-section {
+        flex-direction: column;
+        height: auto;
+      }
+      .left, .model-info, .offer-left, .right, .model-img, .offer-right {
+        width: 100%;
+        padding: 40px 20px;
+      }
+    }
+
+    .fine-print {
+    max-width: 1200px;
+    margin: 60px auto 40px;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #5c5e62;
+  }
+  .fine-print ol {
+    margin: 0 0 40px 20px;
+    padding: 0;
+  }
+  .fine-print li {
+    margin-bottom: 10px;
+  }
+  .fine-print a {
+    color: #3e6ae1;
+    text-decoration: none;
+  }
+  .fine-print a:hover {
+    text-decoration: underline;
+  }
+  .footer-links {
+    text-align: center;
+    border-top: 1px solid #e0e0e0;
+    padding-top: 20px;
+    color: #777;
+  }
+  .footer-links a {
+    color: #5c5e62;
+    text-decoration: none;
+  }
+  .footer-links a:hover {
+    text-decoration: underline;
+  }
+  
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">TESLA</div>
+    <nav>
+      <a href="#">Vehicles</a>
+      <a href="#">Energy</a>
+      <a href="#">Charging</a>
+      <a href="#">Discover</a>
+      <a href="#">Shop</a>
+    </nav>
+    <div class="icons">
+      <span>❔</span>
+      <span>🌐</span>
+      <span>👤</span>
+    </div>
+  </header>
+
+  <section class="offers-section">
+    <h1>Current Offers</h1>
+    <h2>Limited Inventory — Take Delivery Today</h2>
+    <p>All promotions are subject to change and may end at any time.</p>
+  </section>
+
+  <!-- Every New Tesla -->
+  <section class="content">
+    <div class="left">
+      <h2>Every New Tesla</h2>
+      <div>🏅 $500 Off for American Heroes<sup>1</sup></div>
+      <p>Military, first responders, healthcare, teachers and students can receive $500 off a Tesla vehicle.</p>
+      <div>🚗 Full Self-Driving (Supervised) Trial<sup>2</sup></div>
+      <p>Receive a free one-month trial of Full Self-Driving (Supervised).</p>
+    </div>
+    <div class="right"></div>
+  </section>
+
+  <!-- Model 3 -->
+  <section class="model-offer">
+    <div class="model-info">
+      <h4>Sport Sedan</h4>
+      <h1>Model 3</h1>
+      <div class="model-buttons">
+        <a href="#" class="btn-blue">Order Now</a>
+        <a href="#" class="btn-white">View Inventory</a>
+      </div>
+      <div class="financing">💳 <del>5.14%</del> <strong>2.99% APR Financing</strong><small>4</small></div>
+      <div class="prequalified"><a href="#">Get Prequalified</a><br>Available for up to 60-month financing terms.</div>
+    </div>
+    <div class="model-img"><img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Offers-Model-3.png" alt="Model 3"></div>
+  </section>
+
+  <!-- Model Y -->
+  <section class="model-offer">
+    <div class="model-info">
+      <h4>Midsize SUV</h4>
+      <h1>Model Y</h1>
+      <div class="model-buttons">
+        <a href="#" class="btn-blue">Order Now</a>
+        <a href="#" class="btn-white">View Inventory</a>
+      </div>
+      <div class="financing">💳 <del>5.14%</del> <strong>3.99% APR Financing</strong><small>5</small></div>
+      <div class="prequalified"><a href="#">Get Prequalified</a><br>Available for up to 60-month financing terms.</div>
+    </div>
+    <div class="model-img"><img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Offers-Model-Y.png" alt="Model Y"></div>
+  </section>
+
+  <!-- Cybertruck -->
+  <section class="offer-section">
+    <div class="offer-left">
+      <h4>Utility Truck</h4>
+      <div class="button-row">
+        <button class="btn-blue">Order Now</button>
+        <button class="btn-white">View Inventory</button>
+      </div>
+      <p class="financing"><span class="strike">5.14%</span> <strong>2.49% APR Financing</strong><sup>6</sup></p>
+      <p class="small-text"><a href="#">Get Prequalified</a><br>Available for up to 60-month financing terms.</p>
+    </div>
+    <div class="offer-right">
+      <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Offers-Cybertruck.png" alt="Cybertruck">
+    </div>
+  </section>
+
+  <!-- Model S -->
+  <section class="model-offer">
+    <div class="model-info">
+      <h4>Luxury Sedan</h4>
+      <h1>Model S</h1>
+      <div class="model-buttons">
+        <a href="#" class="btn-blue">Order Now</a>
+        <a href="#" class="btn-white">View Inventory</a>
+      </div>
+      <div class="financing">💳 <del>5.14%</del> <strong>3.99% APR Financing</strong><small>9</small></div>
+      <p>Model Year 2026 — Vehicles Now Include Luxe Package:</p>
+      <ul>
+        <li>Full Self-Driving (Supervised)</li>
+        <li>Four-Year Premium Service</li>
+        <li>Supercharging Access</li>
+        <li>Premium Connectivity</li>
+      </ul>
+    </div>
+    <div class="model-img"><img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Offers-Model-S.png" alt="Model S"></div>
+  </section>
+
+  <!-- Model X -->
+  <section class="model-offer">
+    <div class="model-info">
+      <h4>Luxury SUV</h4>
+      <h1>Model X</h1>
+      <div class="model-buttons">
+        <a href="#" class="btn-blue">Order Now</a>
+        <a href="#" class="btn-white">View Inventory</a>
+      </div>
+      <div class="financing">💳 <del>5.14%</del> <strong>3.99% APR Financing</strong><small>10</small></div>
+      <p>Model Year 2026 — Vehicles Now Include Luxe Package:</p>
+      <ul>
+        <li>Full Self-Driving (Supervised)</li>
+        <li>Four-Year Premium Service</li>
+        <li>Supercharging Access</li>
+        <li>Premium Connectivity</li>
+      </ul>
+    </div>
+    <div class="model-img"><img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Offers-Model-X.png" alt="Model X"></div>
+  </section>
+
+  <!-- Fine print / disclaimers -->
+<section class="fine-print">
+  <ol>
+    <li>All new vehicles eligible subject to verification of status through ID.me prior to order. Additional <a href="#">terms and conditions apply</a>.</li>
+    <li>All new vehicles receive a <a href="#">30-day trial</a> upon delivery. Currently enabled features require active driver supervision and do not make the vehicle autonomous.</li>
+    <li>All new vehicles eligible to receive the transfer subject to <a href="#">terms and conditions</a>. Does not require trade-in of the transferring vehicle, but you must own said vehicle through delivery of the new vehicle.</li>
+    <li>Promotional rates valid for well-qualified buyers with excellent credit who order a new Model 3 on or after September 1, 2025, with a minimum down payment of 5% plus applicable taxes and fees on terms up to 60 months. Monthly payment of $17.22 per $1,000 financed at 2.99% for 60 months. All rates and monthly payments presented are illustrative estimates only. Not all applicants will qualify. Promotion is subject to change or end at any time, and cannot be applied retroactively. Used vehicles and enterprise sales not eligible.</li>
+    <li>Promotional rates valid for well-qualified buyers with excellent credit who order a new Model Y on or after August 18, 2025, with a minimum down payment of 5% plus applicable taxes and fees on terms up to 60 months. Monthly payment of $18.45 per $1,000 financed at 3.99% for 60 months. All rates and monthly payments presented are illustrative estimates only. Not all applicants will qualify. Promotion is subject to change or end at any time, and cannot be applied retroactively. Used vehicles and enterprise sales not eligible.</li>
+    <li>Promotional rate of 2.49% valid for well-qualified buyers with excellent credit who order a new Cybertruck All-Wheel Drive or Long Range vehicle on or after June 5, 2025, with a minimum down payment of 4% plus applicable taxes and fees on terms up to 60 months. All rates and monthly payments presented are illustrative estimates only. Not all applicants will qualify. Promotion is subject to change or end at any time, and cannot be applied retroactively.</li>
+    <li>Only available for new model year 2026+ Model S and Model X, and new Cyberbeast vehicles. Subject to change. <a href="#">Terms and conditions apply</a>.</li>
+    <li>Available for new Cybertruck leases only. Must configure vehicle with 20″ Cyber Wheel option and price will be removed from final lease agreement prior to delivery.</li>
+    <li>Promotional rates valid for well-qualified buyers with excellent credit who order a new Model S or Model X on or after October 16, 2025, with a minimum down payment of 5% plus applicable taxes and fees on terms up to 60 months. Monthly payment of $15.67 per $1,000 financed at 3.99% for 72 months. All rates and monthly payments presented are illustrative estimates only. Not all applicants will qualify. Promotion is subject to change or end at any time, and cannot be applied retroactively. Used vehicles and enterprise sales not eligible.</li>
+  </ol>
+
+  <div class="footer-links">
+    <p>
+      Tesla © 2025 &nbsp;|&nbsp;
+      <a href="#">Privacy & Legal</a> &nbsp;|&nbsp;
+      <a href="#">Vehicle Recalls</a> &nbsp;|&nbsp;
+      <a href="#">Contact</a> &nbsp;|&nbsp;
+      <a href="#">News</a> &nbsp;|&nbsp;
+      <a href="#">Get Updates</a> &nbsp;|&nbsp;
+      <a href="#">Locations</a> &nbsp;|&nbsp;
+      <a href="#">Learn</a>
+    </p>
+  </div>
+</section>
+
+
+  <footer>© 2025 Tesla, Inc. All rights reserved.</footer>
+
+</body>
+</html>

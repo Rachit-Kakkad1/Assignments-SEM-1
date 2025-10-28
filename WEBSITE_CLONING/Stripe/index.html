@@ -1,0 +1,1110 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Stripe Hero Clone - Updated Dropdowns (Fixed Layout)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --nav-link-color: rgba(0, 0, 0, 0.7);
+            --nav-link-hover: #000;
+            --dropdown-bg: #fff;
+            --dropdown-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            --dropdown-radius: 16px;
+            --dropdown-text: #0b1020;
+            --dropdown-text-light: #555;
+            --dropdown-heading: #888;
+            --border-color: #eee;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html,
+        body {
+            height: 100%
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+            background: #fff;
+            color: #0b1020;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .hero-wrap {
+            position: relative;
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hero-wrap::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 150%;
+            background: radial-gradient(circle at 20% 30%, #ffc0cb, #ffffc0 25%, #b0e0e6 50%, transparent 70%);
+            filter: blur(100px);
+            opacity: 0.6;
+            z-index: 0;
+        }
+
+        .nav {
+            position: relative;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 48px;
+            flex-shrink: 0;
+        }
+
+        .nav .brand {
+            font-weight: 800;
+            color: #635bff;
+            font-size: 26px;
+            text-transform: lowercase;
+            margin-right: 24px;
+        }
+
+        .nav .links {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        /* Nav links (non-dropdown) */
+        .nav a {
+            color: var(--nav-link-color);
+            text-decoration: none;
+            font-weight: 600;
+            opacity: 0.95;
+            padding: 8px 12px;
+            border-radius: 99px;
+            transition: all 0.2s ease;
+        }
+
+        .nav a:hover {
+            color: var(--nav-link-hover);
+        }
+
+        .nav .nav-cta-links {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .nav .cta {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 999px;
+            color: #0a2540;
+            font-weight: 700;
+            border: 1px solid #eee;
+            backdrop-filter: blur(5px);
+        }
+
+        /* --- Dropdown Base Styles --- */
+
+        .nav-item {
+            position: relative;
+        }
+
+        .dropdown-toggle {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .dropdown-toggle .arrow {
+            font-size: 0.8em;
+            transition: transform 0.2s ease;
+        }
+
+        .nav-item:hover .dropdown-toggle .arrow {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-10px);
+            margin-top: 16px;
+            background: var(--dropdown-bg);
+            border-radius: var(--dropdown-radius);
+            box-shadow: var(--dropdown-shadow);
+            padding: 32px;
+            width: auto;
+            max-width: 95vw; /* General max width */
+            display: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+            z-index: 1000;
+        }
+
+        .nav-item:hover .dropdown-menu {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* --- Solutions Dropdown Specific --- */
+        .solutions-menu {
+            width: 840px;
+        }
+
+        .dropdown-grid { /* Used in Solutions */
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .dropdown-section { /* Used in Solutions */
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .dropdown-heading { /* Shared */
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--dropdown-heading);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding-left: 28px; /* Default for icon alignment */
+        }
+
+        .section-links { /* Used in Solutions */
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px 24px;
+        }
+
+        /* Basic link item style */
+        .dropdown-link-item a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 4px;
+            border-radius: 6px;
+            text-decoration: none;
+            color: var(--dropdown-text-light);
+            font-weight: 600;
+            font-size: 15px;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .dropdown-link-item a:hover {
+            background-color: #f0f0f0;
+            color: var(--dropdown-text);
+        }
+
+        .dropdown-link-item .icon {
+            font-size: 16px; /* Base size */
+            width: 18px;
+            text-align: center;
+            flex-shrink: 0; /* Prevent icon shrinking */
+        }
+
+        .dropdown-link-item .external-icon {
+            font-size: 0.8em;
+            opacity: 0.7;
+        }
+
+
+        /* --- Developer Dropdown Specific --- */
+
+        .developers-menu {
+            width: 640px;
+            padding: 0;
+        }
+
+        .doc-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 24px 32px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .doc-icon {
+            font-size: 24px;
+            color: #635bff;
+        }
+
+        .doc-header-text strong {
+            display: block;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--dropdown-text);
+        }
+
+        .doc-header-text span {
+            font-size: 14px;
+            color: var(--dropdown-text-light);
+        }
+
+        .doc-grid { /* Used by Dev dropdown */
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            padding: 24px 32px;
+        }
+
+        .doc-col .doc-heading { /* Used by Dev dropdown */
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--dropdown-heading);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        .doc-links { /* Used by Dev and Resources dropdown */
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px; /* Default gap */
+        }
+
+        .doc-links li a { /* Used by Dev and Resources dropdown */
+            text-decoration: none;
+            color: var(--dropdown-text); /* Darker default */
+            font-size: 15px;
+            font-weight: 500; /* Lighter default */
+            padding: 4px 0;
+            display: block;
+            border-radius: 4px;
+            transition: color 0.2s ease;
+        }
+
+        .doc-links li a:hover { /* Used by Dev and Resources dropdown */
+            color: #635bff;
+        }
+
+        .doc-footer { /* Shared grey footer (Used by Dev and Resources) */
+            background-color: #f7f9fc;
+            padding: 24px 32px;
+            border-bottom-left-radius: var(--dropdown-radius);
+            border-bottom-right-radius: var(--dropdown-radius);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px 24px;
+        }
+
+        .doc-footer .dropdown-link-item a { /* Used by Dev and Resources */
+             font-size: 15px;
+             font-weight: 500;
+        }
+
+        .doc-footer .dropdown-link-item .icon { /* Used by Dev and Resources */
+            color: #635bff;
+            font-size: 18px;
+        }
+
+        /* --- Resources Dropdown Specific --- */
+
+        .resources-menu {
+            width: 580px;
+            padding: 0;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px 24px;
+            padding: 24px 32px;
+        }
+
+        .resources-menu .dropdown-link-item a {
+            color: var(--dropdown-text);
+            font-weight: 500;
+        }
+
+        .resources-menu .dropdown-link-item .icon {
+            color: #635bff;
+            font-size: 18px;
+        }
+
+        /* --- Container & Hero --- */
+
+        .container {
+            position: relative;
+            z-index: 8;
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 40px;
+            align-items: center;
+            padding: 48px 48px 120px;
+            width: 100%;
+            max-width: 1300px;
+            margin: 0 auto;
+            flex-grow: 1;
+        }
+
+        .left-col {
+            position: relative;
+            z-index: 10;
+        }
+
+        .preview-tag {
+            display: inline-block;
+            background-color: #f0f0f0;
+            color: #555;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 24px;
+            border: 1px solid #ddd;
+        }
+
+        .headline {
+            color: rgba(5, 10, 25, 0.95);
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -3px;
+            font-size: clamp(48px, 8vw, 72px);
+        }
+
+        .sub {
+            margin-top: 28px;
+            max-width: 500px;
+            color: rgba(5, 10, 25, 0.7);
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 1.6
+        }
+
+        .hero-buttons {
+            margin-top: 32px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .hero-buttons .btn {
+            text-decoration: none;
+            font-weight: 700;
+            padding: 12px 24px;
+            border-radius: 25px;
+            transition: all 0.2s ease;
+            font-size: 16px;
+        }
+
+        .hero-buttons .btn-primary {
+            background-color: #0a2540;
+            color: white;
+        }
+
+        
+        .right-col {
+            position: relative; 
+            min-height: 700px;
+            perspective: 1000px;
+        }
+
+        .ui-card {
+            background-color: white;
+            border: 1px solid #eee;
+            overflow: hidden;
+            position: absolute;
+            transition: transform 0.1s linear, opacity 0.3s ease;
+            will-change: transform;
+        }
+
+        
+        .dashboard-card {
+            top: 0;
+            right: 0;
+            width: 95%;
+            max-width: 600px; 
+            z-index: 5;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transform: rotateY(-10deg) rotateX(5deg) scale(0.9);
+            opacity: 0.9;
+        }
+
+        .mobile-card {
+            bottom: 0;
+            left: 10px;
+            width: 350px;
+            max-width: 90%; 
+            z-index: 10;
+            border-radius: 35px;
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.3);
+            transform: rotateY(-5deg) rotateX(2deg);
+        }
+
+        .dashboard-card .top-bar {
+            background-color: #f7f9fc;
+            padding: 12px 16px;
+            border-bottom: 1px solid #e6ebf1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dashboard-card .top-bar .logo {
+            font-weight: 700;
+            font-size: 14px;
+            color: #0a2540;
+        }
+
+        .dashboard-card .top-bar .search {
+            font-size: 14px;
+            color: #425466;
+            background-color: white;
+            padding: 6px 10px;
+            border-radius: 6px;
+            border: 1px solid #e6ebf1;
+        }
+
+        .dashboard-card .content {
+            display: flex;
+            padding: 16px;
+            gap: 16px;
+            background-color: #fcfdff;
+        }
+
+        
+        .dashboard-card .col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            min-width: 0;
+        }
+
+        
+        .dashboard-card .metric-card {
+            background-color: white;
+            border: 1px solid #e6ebf1;
+            border-radius: 8px;
+            padding: 16px;
+            overflow: hidden;
+        }
+
+        .dashboard-card .title {
+            display: block;
+            font-size: 14px;
+            color: #425466;
+            white-space: nowrap; 
+        }
+
+        .dashboard-card .title .arrow {
+            opacity: 0.5;
+        }
+
+        .dashboard-card .value {
+            display: block;
+            font-size: 24px;
+            font-weight: 700;
+            color: #0a2540;
+            margin: 4px 0;
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis;
+        }
+
+        
+        .dashboard-card .metric-card svg {
+            display: block;
+            width: 100%; 
+            max-width: 100%;
+            height: auto;  
+            min-height: 60px;
+        }
+
+
+        .mobile-card .content {
+            padding: 24px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .mobile-card .product-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 64px;
+            height: 64px;
+            border-radius: 14px;
+            border: 1px solid #e6ebf1;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 12px;
+            background: #f7f9fc;
+        }
+
+        .mobile-card .product-icon .inner-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #b0d8f5, #635bff);
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            line-height: 40px;
+        }
+
+        .mobile-card strong {
+            display: block;
+            color: #0a2540;
+            font-size: 16px;
+        }
+
+        .mobile-card .price {
+            color: #425466;
+            font-size: 14px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .mobile-card .pay-button {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            background-color: #000;
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .mobile-card .divider {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .mobile-card form {
+            text-align: left;
+        }
+
+        .mobile-card label {
+            display: block;
+            font-weight: 600;
+            font-size: 13px;
+            color: #425466;
+            margin-bottom: 4px;
+        }
+
+        .mobile-card input,
+        .mobile-card select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e6ebf1;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            background: #fff;
+        }
+
+        .mobile-card .card-input-wrapper {
+            position: relative;
+        }
+
+        .mobile-card .card-logos {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            gap: 4px;
+            pointer-events: none;
+        }
+
+        .mobile-card .card-logos img {
+            height: 16px;
+        }
+
+        .mobile-card .row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .mobile-card .dark-button {
+            width: 100%;
+            border: none;
+            background: #0a2540;
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 700;
+            margin-top: 8px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        
+        .company-logos {
+            position: relative;
+            z-index: 5;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            padding: 40px 48px;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .company-logos .logo-item {
+            font-family: 'Inter', system-ui;
+            font-size: 22px;
+            font-weight: 600;
+            color: #555;
+            opacity: 0.7;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width:1100px) {
+            .container {
+                grid-template-columns: 1fr 1fr;
+                padding: 32px;
+                padding-bottom: 120px;
+            }
+
+            .right-col {
+                min-height: 600px;
+            }
+
+            .dashboard-card {
+                width: 100%; /* Allow it to take full width available */
+                 max-width: 600px; /* Keep max width */
+                 /* Adjust transform slightly if needed */
+            }
+
+            .mobile-card {
+                width: 320px;
+                 max-width: 90%; /* Adjust if needed */
+            }
+        }
+
+        @media (max-width:880px) {
+            .container {
+                grid-template-columns: 1fr;
+                gap: 64px;
+                padding: 28px;
+                padding-bottom: 120px;
+            }
+
+            .right-col {
+                 /* Reset properties changed for absolute positioning */
+                min-height: auto;
+                perspective: none;
+                 /* Keep transform scale from previous query */
+                transform: scale(0.9);
+                transform-origin: top center;
+                /* Add display flex to center children if needed */
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 30px; /* Add gap between stacked cards */
+            }
+             .dashboard-card {
+                 position: relative; /* Change from absolute */
+                 transform: none; /* Reset transform */
+                 width: 100%;
+                 max-width: 500px; /* Adjust max width */
+                 margin: 0; /* Reset margin */
+                 opacity: 1; /* Reset opacity */
+                 /* Remove top/right */
+                 top: auto;
+                 right: auto;
+             }
+             .mobile-card {
+                 position: relative; /* Change from absolute */
+                 transform: none; /* Reset transform */
+                 width: 100%;
+                 max-width: 350px; /* Adjust max width */
+                 margin: 0; /* Reset margin */
+                 /* Remove left/bottom */
+                 left: auto;
+                 bottom: auto;
+             }
+
+
+            .headline {
+                font-size: 48px;
+            }
+
+            .nav {
+                padding: 18px;
+            }
+
+            .nav .links {
+                display: none; /* Hide nav links on mobile */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hero-wrap">
+
+        <header class="nav">
+            <div class="brand">stripe</div>
+            
+            <nav class="links">
+                
+                 <div class="nav-item">
+                    <a href="#">Products</a>
+                </div>
+
+                <div class="nav-item">
+                    <a href="#" class="dropdown-toggle">
+                        Solutions <span class="arrow">▾</span>
+                    </a>
+                    <div class="dropdown-menu solutions-menu">
+                       <div class="dropdown-grid">
+                            <div class="dropdown-col">
+                                <div class="dropdown-section">
+                                    <div class="dropdown-heading">By Stage</div>
+                                    <div class="section-links">
+                                        <div class="dropdown-link-item"><a href="#"><span class="icon">🏢</span> Enterprises</a></div>
+                                        <div class="dropdown-link-item"><a href="#"><span class="icon">🚀</span> Startups</a></div>
+                                    </div>
+                                </div>
+                                <div class="dropdown-section">
+                                    <div class="dropdown-heading">By Industry</div>
+                                    <div class="section-links">
+                                        <div class="dropdown-link-item"><a href="#"><span class="icon">🤖</span> AI Companies</a></div>
+                                        <div class="dropdown-link-item"><a href="#"><span class="icon">📺</span> Media</a></div>
+                                        <div class="dropdown-link-item"><a href="#"><span class="icon">🎨</span> Creator Economy</a></div>
+                                        <div class="dropdown-link-item"><a href="#"><span class="icon">❤️</span> Non-profits</a></div>
+                                        <div class="dropdown-link-item"><a href="#"><span class="icon">✈️</span> Hospitality</a></div>
+                                        <div class="dropdown-link-item"><a href="#"><span class="icon">🛍️</span> Retail</a></div>
+                                        <div class="dropdown-link-item"><a href="#"><span class="icon">🛡️</span> Insurance</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdown-col">
+                                <div class="dropdown-section">
+                                    <div class="dropdown-heading">By Use Case</div>
+                                    <div class="section-links">
+                                         <div class="dropdown-link-item"><a href="#"><span class="icon">₿</span> Crypto</a></div>
+                                         <div class="dropdown-link-item"><a href="#"><span class="icon">🌍</span> Global</a></div>
+                                         <div class="dropdown-link-item"><a href="#"><span class="icon">🛒</span> E-commerce</a></div>
+                                         <div class="dropdown-link-item"><a href="#"><span class="icon">🏪</span> Marketplaces</a></div>
+                                         <div class="dropdown-link-item"><a href="#"><span class="icon">💳</span> Embedded Finance</a></div>
+                                         <div class="dropdown-link-item"><a href="#"><span class="icon">🧱</span> Platforms</a></div>
+                                         <div class="dropdown-link-item"><a href="#"><span class="icon">⚙️</span> Finance Automation</a></div>
+                                         <div class="dropdown-link-item"><a href="#"><span class="icon">☁️</span> SaaS</a></div>
+                                    </div>
+                                </div>
+                                 <div class="dropdown-section">
+                                    <div class="dropdown-heading">Ecosystem</div>
+                                    <div class="section-links">
+                                        <div class="dropdown-link-item"><a href="#"><span class="icon">🧩</span> Stripe App Marketplace <span class="external-icon">↗</span></a></div>
+                                        <div class="dropdown-link-item"><a href="#"><span class="icon">🤝</span> Partners</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-item">
+                    <a href="#" class="dropdown-toggle">
+                        Developers <span class="arrow">▾</span>
+                    </a>
+                    <div class="dropdown-menu developers-menu">
+                        <div class="doc-header">
+                            <span class="doc-icon">📖</span>
+                            <div class="doc-header-text">
+                                <strong>Documentation</strong>
+                                <span>Start integrating Stripe's products and tools</span>
+                            </div>
+                        </div>
+                        <div class="doc-grid">
+                            <div class="doc-col">
+                                <div class="doc-heading">Get Started</div>
+                                <ul class="doc-links">
+                                    <li><a href="#">Pre-built checkout</a></li>
+                                    <li><a href="#">Libraries and SDKs</a></li>
+                                    <li><a href="#">App integrations</a></li>
+                                    <li><a href="#">Code samples</a></li>
+                                </ul>
+                            </div>
+                            <div class="doc-col">
+                                <div class="doc-heading">Guides</div>
+                                <ul class="doc-links">
+                                    <li><a href="#">Accept online payments</a></li>
+                                    <li><a href="#">Manage subscriptions</a></li>
+                                    <li><a href="#">Send payments</a></li>
+                                    <li><a href="#">Set up in-person payments</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="doc-footer">
+                            <div class="dropdown-link-item"><a href="#"><span class="icon">🗂️</span> Full API reference</a></div>
+                            <div class="dropdown-link-item"><a href="#"><span class="icon">📈</span> API status</a></div>
+                            <div class="dropdown-link-item"><a href="#"><span class="icon">💻</span> API changelog</a></div>
+                            <div class="dropdown-link-item"><a href="#"><span class="icon">📦</span> Build on Stripe Apps</a></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="nav-item">
+                    <a href="#" class="dropdown-toggle">
+                        Resources <span class="arrow">▾</span>
+                    </a>
+                    <div class="dropdown-menu resources-menu">
+                        <div class="resources-grid">
+                            <div class="dropdown-link-item"><a href="#"><span class="icon">🎯</span> Support centre</a></div>
+                            <div class="dropdown-link-item"><a href="#"><span class="icon">✍️</span> Blog</a></div>
+                            <div class="dropdown-link-item"><a href="#"><span class="icon">🏷️</span> Support plans</a></div>
+                            <div class="dropdown-link-item"><a href="#"><span class="icon">🗓️</span> Sessions</a></div>
+                            <div class="dropdown-link-item"><a href="#"><span class="icon">📚</span> Guides</a></div>
+                            <div class="dropdown-link-item"><a href="#"><span class="icon">✉️</span> Contact sales</a></div>
+                            <div class="dropdown-link-item"><a href="#"><span class="icon">👥</span> Customer stories</a></div>
+                            <div class="dropdown-link-item"><a href="#"><span class="icon">💬</span> Professional services</a></div>
+                        </div>
+                        <div class="doc-footer">
+                            <div class="dropdown-link-item"><a href="#"><span class="icon">💼</span> Jobs</a></div>
+                            <div class="dropdown-link-item"><a href="#"><span class="icon">📘</span> Stripe Press</a></div>
+                            <div class="dropdown-link-item"><a href="#"><span class="icon">📰</span> Newsroom</a></div>
+                            <div class="dropdown-link-item"><a href="#"><span class="icon">🏆</span> Become a partner</a></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-item">
+                    <a href="#">Pricing</a>
+                </div>
+            </nav>
+
+            <div class="nav-cta-links">
+                <a href="signin.html">Sign in</a>
+                <a href="./contactsales.html" class="cta">Contact Sales&rarr;</a>
+            </div>
+        </header>
+
+        <main class="container">
+           <section class="left-col">
+                <span class="preview-tag">Preview</span>
+                <h1 class="headline">Financial<br>infrastructure<br>to grow your<br>revenue</h1>
+                <p class="sub">Join the millions of companies that use Stripe to accept payments online and in person,
+                    embed financial services, power custom revenue models, and build a more profitable business.</p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn btn-primary">Request an invite &rarr;</a>
+                </div>
+           </section>
+
+           <aside class="right-col">
+                <div class="ui-card dashboard-card" aria-hidden>
+                    <div class="top-bar">
+                        <div class="logo">Today</div>
+                        <div class="search">🔍 Search</div>
+                    </div>
+                    <div class="content">
+                        <div class="col">
+                            <div class="metric-card">
+                                <div class="title">Net volume <span class="arrow">▾</span></div>
+                                <div class="value">₹35,28,198.72</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="title">Net volume from sales</div>
+                                <div class="value">₹39,274.29</div>
+                                <svg width="100%" height="80px" viewBox="0 0 200 80" preserveAspectRatio="none">
+                                    <polyline points="0,70 30,65 60,70 90,50 120,40 150,55 180,45 200,50" fill="none"
+                                        stroke="#6b5ace" stroke-width="3" stroke-linecap="round"
+                                        stroke-linejoin="round"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="metric-card">
+                                <div class="title">Payouts <span class="arrow">▾</span></div>
+                                <div class="value">₹29,31,556.34</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="title">New customers</div>
+                                <div class="value">37</div>
+                                <svg width="100%" height="80px" viewBox="0 0 200 80" preserveAspectRatio="none">
+                                    <polyline points="0,70 30,75 60,60 90,65 120,50 150,55 180,65 200,55" fill="none"
+                                        stroke="#cccccc" stroke-width="3" stroke-linecap="round"
+                                        stroke-linejoin="round"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-card mobile-card" aria-hidden>
+                    <div class="content">
+                        <div class="product-icon">
+                            <div class="inner-img">Issue 001</div>
+                        </div>
+                        <strong>Abstraction Magazine</strong>
+                        <span class="price">₹19 per month</span>
+                        <a href="#" class="pay-button"> Pay</a>
+                        <div class="divider">Or pay with card</div>
+                        <form>
+                            <label>Email</label>
+                            <input type="email" placeholder="you@example.com">
+                            <label>Card Information</label>
+
+                            <div class="card-input-wrapper">
+                                <input placeholder="Number">
+                                <div class="card-logos">
+                                    <img src="https://js.stripe.com/v3/fingerprinted/img/visa-729c05c240c4a15648873a45c8104809.svg"
+                                        alt="Visa">
+                                    <img src="https://js.stripe.com/v3/fingerprinted/img/mastercard-4d8836b3ec7608b5498825650193d5d1.svg"
+                                        alt="Mastercard">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <input placeholder="MM / YY">
+                                <input placeholder="CVC">
+                            </div>
+                            <label>Country or region</label>
+                            <select>
+                                <option>India</option>
+                                <option>United States</option>
+                                <option>United Kingdom</option>
+                            </select>
+                            <input placeholder="Postcode">
+                            <button class="dark-button">Pay</button>
+                        </form>
+                    </div>
+                </div>
+           </aside>
+        </main>
+
+        <section class="company-logos">
+            <div class="logo-item">OpenAI</div>
+            <div class="logo-item">amazon</div>
+            <div class="logo-item" style="font-weight: 800;">Google</div>
+            <div class="logo-item">ANTHROPIC</div>
+            <div class="logo-item" style="font-weight: 800;">Marriott</div>
+            <div class="logo-item" style="font-weight: 800;">shopify</div>
+            <div class="logo-item" style="font-weight: 800;">airbnb</div>
+            <div class="logo-item" style="font-weight: 800;">LR</div>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const heroWrap = document.querySelector('.hero-wrap');
+            const dashboardCard = document.querySelector('.dashboard-card');
+            const mobileCard = document.querySelector('.mobile-card');
+
+            
+            const isSmallScreen = () => window.innerWidth <= 880;
+
+            if (!heroWrap || !dashboardCard || !mobileCard ) {
+                return;
+            }
+
+            const handleMouseMove = (e) => {
+                 if (isSmallScreen()) return; 
+
+                const { clientX, clientY } = e;
+                const { offsetWidth, offsetHeight } = heroWrap;
+
+                const xPos = (clientX / offsetWidth - 0.5) * 2;
+                const yPos = (clientY / offsetHeight - 0.5) * 2;
+
+                const maxRotateY = 10;
+                const maxRotateX = 5;
+                const maxTranslate = 10;
+
+            
+                const dashRotateY = xPos * maxRotateY * 0.5;
+                const dashRotateX = -yPos * maxRotateX * 0.5;
+                const dashTranslateX = xPos * maxTranslate * 0.5;
+                const dashTranslateY = yPos * maxTranslate * 0.5;
+
+                dashboardCard.style.transform = `
+                    translateX(${dashTranslateX}px)
+                    translateY(${dashTranslateY}px)
+                    rotateY(${dashRotateY - 10}deg)
+                    rotateX(${dashRotateX + 5}deg)
+                    scale(0.9)
+                `;
+
+              
+                const mobileRotateY = xPos * maxRotateY;
+                const mobileRotateX = -yPos * maxRotateX;
+                const mobileTranslateX = xPos * maxTranslate;
+                const mobileTranslateY = yPos * maxTranslate;
+
+                mobileCard.style.transform = `
+                    translateX(${mobileTranslateX}px)
+                    translateY(${mobileTranslateY}px)
+                    rotateY(${mobileRotateY - 5}deg)
+                    rotateX(${mobileRotateX + 2}deg)
+                `;
+            }
+
+             const resetTransforms = () => {
+              
+                 if (dashboardCard.style.transform) {
+                     dashboardCard.style.transform = 'rotateY(-10deg) rotateX(5deg) scale(0.9)';
+                 }
+                 if (mobileCard.style.transform) {
+                     mobileCard.style.transform = 'rotateY(-5deg) rotateX(2deg)';
+                 }
+             }
+              const removeTransforms = () => {
+               
+                 dashboardCard.style.transform = '';
+                 mobileCard.style.transform = '';
+             }
+
+            
+             if (isSmallScreen()) {
+                 removeTransforms();
+             } else {
+                 resetTransforms(); 
+                 heroWrap.addEventListener('mousemove', handleMouseMove);
+                 heroWrap.addEventListener('mouseleave', resetTransforms);
+             }
+
+
+         
+              let resizeTimeout;
+              window.addEventListener('resize', () => {
+                 clearTimeout(resizeTimeout);
+                 resizeTimeout = setTimeout(() => {
+                      if (isSmallScreen()) {
+                           heroWrap.removeEventListener('mousemove', handleMouseMove);
+                           heroWrap.removeEventListener('mouseleave', resetTransforms);
+                           removeTransforms(); 
+                      } else {
+                       
+                           heroWrap.removeEventListener('mousemove', handleMouseMove); 
+                           heroWrap.removeEventListener('mouseleave', resetTransforms);
+                           heroWrap.addEventListener('mousemove', handleMouseMove);
+                           heroWrap.addEventListener('mouseleave', resetTransforms);
+                           resetTransforms();
+                      }
+                 }, 250); 
+              });
+
+        });
+    </script>
+</body>
+
+</html>

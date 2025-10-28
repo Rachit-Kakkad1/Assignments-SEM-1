@@ -1,0 +1,2023 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tesla</title>
+    <style>
+        html {
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            color: #171a20;
+            background-color: #fff;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 40px;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9999;
+            box-sizing: border-box;
+            height: 52px;
+            transition: transform 300ms cubic-bezier(.2, .9, .2, 1), background 300ms ease, box-shadow 300ms ease;
+            backdrop-filter: blur(6px);
+        }
+
+        .header.hidden {
+            transform: translateY(-110%);
+            box-shadow: none;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .header img {
+            height: 14px;
+            width: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        #img {
+            width: 100px;
+            height: auto;
+        }
+
+        .header .nav {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-item>a {
+            text-decoration: none;
+            color: #171a20;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 8px 12px;
+            border-radius: 4px;
+            display: block;
+            transition: background 180ms ease, transform 180ms ease;
+        }
+
+        .nav-item>a:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .header .right-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .header .right-icons a {
+            text-decoration: none;
+            color: #171a20;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background 180ms ease, transform 180ms ease;
+        }
+
+        .header .right-icons a:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .dropdown-menu {
+            position: fixed;
+            top: 52px;
+            left: 0;
+            width: 100%;
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+            pointer-events: none;
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            box-sizing: border-box;
+            background-color: #fff;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            height: auto;
+            min-height: 250px;
+            transform: translateY(-8px);
+        }
+
+        .nav-item:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        #vehicles-dropdown.dropdown-menu {
+            padding-top: 20px;
+            padding-bottom: 20px;
+            min-height: 450px;
+        }
+
+        .dropdown-content-wrapper {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            max-width: 1400px;
+            text-align: left;
+        }
+
+        #vehicles-dropdown-content {
+            justify-content: center;
+        }
+
+        .vehicle-showcase {
+            flex-grow: 1;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .vehicle-item {
+            text-align: center;
+        }
+
+        .vehicle-item img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .vehicle-item h3 {
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .item-links a {
+            text-decoration: underline;
+            margin: 0 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .sidebar-nav {
+            width: 200px;
+            flex-shrink: 0;
+            margin-left: 3rem;
+            padding-top: 1rem;
+        }
+
+        .sidebar-nav ul {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .sidebar-nav a {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .dropdown-column {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .dropdown-column img {
+            width: 150px;
+            object-fit: cover;
+        }
+
+        .dropdown-column a {
+            text-decoration: none;
+            color: #000;
+            font-weight: 500;
+        }
+
+        .hero-scroller-section {
+            height: 100vh;
+            width: 100vw;
+            scroll-snap-align: start;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero-scroll-content {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            will-change: scroll-position;
+        }
+
+        .hero-scroll-content::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scroll-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            background-color: rgba(255, 255, 255, 0.85);
+            border: none;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            transition: transform 160ms ease, box-shadow 160ms ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+        }
+
+        .scroll-btn:hover {
+            transform: translateY(-50%) scale(1.04);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .scroll-btn.left {
+            left: 18px;
+        }
+
+        .scroll-btn.right {
+            right: 18px;
+        }
+
+        .full-page-section {
+            height: 100vh;
+            width: 100vw;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            position: relative;
+            scroll-snap-align: start none;
+            padding-top: 15vh;
+            padding-bottom: 10vh;
+            box-sizing: border-box;
+            flex-shrink: 0;
+            transition: background-position 300ms ease, transform 500ms ease;
+            will-change: background-position, transform;
+        }
+
+        .hero-slide {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            min-width: 100vw;
+            height: 100vh;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .hero-slide .hero-text {
+            max-width: 920px;
+            text-align: center;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            color: inherit;
+            z-index: 6;
+        }
+
+        .hero-slide .hero-text h1 {
+            font-size: 2.8rem;
+            font-weight: 600;
+            margin: 0;
+            line-height: 1.02;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .hero-slide .hero-text p {
+            margin: 0;
+            opacity: 0;
+            transform: translateY(20px);
+            color: inherit;
+            font-size: 1rem;
+        }
+
+        .hero-slide .hero-buttons {
+            margin-top: 18px;
+            display: flex;
+            gap: 18px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .hero-bg-layer {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background-size: cover;
+            background-position: center;
+            filter: contrast(1);
+            transition: transform 400ms ease, opacity 400ms ease;
+        }
+
+        .hero-dark-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.06));
+            pointer-events: none;
+        }
+
+        .hero-buttons .btn {
+            padding: 12px 36px;
+            border-radius: 26px;
+            border: 0;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 200ms ease, box-shadow 200ms ease;
+        }
+
+        .btn-primary {
+            background-color: #171a20;
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(23, 26, 32, 0.12);
+        }
+
+        .btn-secondary {
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #171a20;
+        }
+
+        .card-scroller-section {
+            height: 100vh;
+            width: 100vw;
+            scroll-snap-align: start;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 10vh 0;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .content {
+            display: flex;
+            gap: 2vw;
+            padding: 0 2vw;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            align-items: stretch;
+            box-sizing: border-box;
+        }
+
+        .content::-webkit-scrollbar {
+            display: none;
+        }
+
+        .card {
+            flex: 0 0 45vw;
+            max-width: 600px;
+            height: 60vh;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            color: #ffffff;
+            text-align: left;
+            transition: transform 380ms cubic-bezier(.2, .9, .2, 1), box-shadow 280ms ease;
+            will-change: transform, box-shadow;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .card .card-top-text {
+            position: absolute;
+            top: 4vh;
+            left: 2vw;
+            font-size: 1.8vh;
+            font-weight: 500;
+            color: #ffffff;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .card .card-bottom-content {
+            position: absolute;
+            bottom: 4vh;
+            left: 2vw;
+            width: 90%;
+        }
+
+        .card .card-bottom-content h3 {
+            font-size: 3vh;
+            font-weight: 500;
+            margin: 0;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+        }
+
+        .card .card-bottom-content p {
+            font-size: 1.8vh;
+            font-weight: 400;
+            margin: 0.5vh 0 2vh 0;
+            text-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .card .card-buttons {
+            display: flex;
+            gap: 1vw;
+        }
+
+        .card .btn {
+            text-decoration: none;
+            padding: 1.2vh 2.5vw;
+            border-radius: 5px;
+            font-weight: 500;
+            font-size: 1.6vh;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .card .btn-primary {
+            background-color: #3e6ae1;
+            color: #fff;
+        }
+
+        .card .btn-secondary {
+            background-color: #ffffff;
+            color: #393c41;
+        }
+
+        #card-1 {
+            background-image: url('https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Card-Model-X-Desktop-US-v2.png');
+        }
+
+        #card-2 {
+            background-image: url('https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Card-Model-S-Desktop-US.png');
+        }
+
+        #card-3 {
+            background-image: url('https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Card-Model-Y-Standard-Desktop.jpg');
+        }
+
+        #card-4 {
+            background-image: url('https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Card-Model-3-Standard-Desktop.jpg');
+        }
+
+        #card-5 {
+            background-image: url('https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Card-Model-Y-Performance-Desktop-EMEA.png');
+        }
+
+        #card-6 {
+            background-image: url('https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Card-Cybertruck-Desktop-NA.jpg');
+        }
+
+        #hero-solar-panels .card {
+            flex: 0 0 70vw;
+            max-width: 950px;
+            height: 70vh;
+        }
+
+        #card-solar-panels {
+            background-image: url('https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Card-Solar-Panels-Desktop.png');
+            color: #171a20;
+        }
+
+        #card-powerwall {
+            background-image: url('https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Card-Powerwall-Desktop.png');
+            color: #171a20;
+        }
+
+        #card-solar-roof {
+            background-image: url('https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Card-Solar-Roof-Desktop.png');
+        }
+
+        #card-megapack {
+            background-image: url('https://digitalcontent.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Card-Megapack-Desktop.jpg');
+        }
+
+        #card-solar-roof .btn-secondary,
+        #card-megapack .btn-secondary {
+            background-color: transparent;
+            color: #fff;
+            border: 2px solid #fff;
+        }
+
+        #card-solar-roof .btn-secondary:hover,
+        #card-megapack .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .image-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .two-card-section {
+            background-color: #fff;
+            padding: 5vh 5vw;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card-container {
+            display: flex;
+            gap: 2vw;
+            width: 100%;
+            height: 80vh;
+            max-width: 1400px;
+        }
+
+        .two-card-section .card {
+            flex: 1 1 50%;
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            text-align: left;
+            color: white;
+        }
+
+        .two-card-section .left-card {
+            flex-grow: 1.5;
+        }
+
+        .two-card-section .right-card {
+            flex-grow: 1;
+        }
+
+        .two-card-section .card .card-content {
+            position: relative;
+            z-index: 2;
+            padding: 4vh 3vw;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
+        }
+
+        .two-card-section .card h2 {
+            font-size: 1.8rem;
+            font-weight: 500;
+            margin: 0 0 15px 0;
+        }
+
+        .two-card-section .right-card .card-content {
+            color: #171a20;
+            background: linear-gradient(to top, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0));
+        }
+
+        .two-card-section .right-card h2 {
+            color: #171a20;
+        }
+
+        .card-buttons-inline {
+            display: flex;
+            gap: 15px;
+        }
+
+        .two-card-section .card .btn {
+            text-decoration: none;
+            padding: 8px 30px;
+            border-radius: 5px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .two-card-section .card .btn-primary {
+            background-color: #3e6ae1;
+            color: #fff;
+            border-color: #3e6ae1;
+        }
+
+        .two-card-section .card .btn-primary:hover {
+            background-color: #3457b2;
+            border-color: #3457b2;
+        }
+
+        .two-card-section .right-card .btn-primary {
+            background-color: #3e6ae1;
+            color: #fff;
+            border-color: #3e6ae1;
+        }
+
+        .two-card-section .right-card .btn-primary:hover {
+            background-color: #3457b2;
+            border-color: #3457b2;
+        }
+
+        .two-card-section .card .btn-secondary-white {
+            background-color: transparent;
+            color: #fff;
+            border-color: #fff;
+        }
+
+        .two-card-section .card .btn-secondary-white:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        #map-section {
+            background-image: url('https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Map-Desktop-NA.png');
+            color: black;
+            justify-content: flex-start;
+        }
+
+        .section-content-map {
+            text-align: left;
+            padding-left: 3vw;
+        }
+
+        .section-content-map h2 {
+            font-size: 2.5rem;
+        }
+
+        .section-content-map .btn {
+            text-decoration: none;
+            padding: 8px 30px;
+            border: 2px solid black;
+            color: black;
+            border-radius: 5px;
+            font-weight: 500;
+            background-color: transparent;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            display: flex;
+            gap: 15px;
+            padding: 8px;
+            background: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            white-space: nowrap;
+            transition: transform 220ms ease, box-shadow 220ms ease;
+        }
+
+        .footer button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: transparent;
+            color: #393c41;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .footer button:hover {
+            background-color: #f0f0ff;
+        }
+
+        .find-charge-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #fff;
+            padding: 120px 40px;
+            box-sizing: border-box;
+            transition: transform 330ms ease, opacity 300ms ease;
+            overflow: hidden;
+        }
+
+        .find-charge-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            gap: 20px;
+        }
+
+        .find-charge-text {
+            flex: 1;
+            text-align: left;
+            max-width: 400px;
+        }
+
+        .find-charge-text h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin: 0 0 10px 0;
+            color: #171a20;
+        }
+
+        .find-charge-text p {
+            color: #5c5e62;
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+
+        .find-charge-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-charge {
+            text-decoration: none;
+            padding: 10px 24px;
+            border-radius: 5px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-charge-dark {
+            background-color: #171a20;
+            color: #fff;
+        }
+
+        .btn-charge-dark:hover {
+            background-color: #393c41;
+        }
+
+        .btn-charge-light {
+            background-color: #f4f4f4;
+            color: #171a20;
+        }
+
+        .btn-charge-light:hover {
+            background-color: #e0e0e0;
+        }
+
+        .find-charge-stats {
+            display: flex;
+            gap: 40px;
+            text-align: left;
+            padding-top: 10px;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stat-header h3 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin: 0;
+            color: #171a20;
+        }
+
+        .stat-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            color: white;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .stat-icon.red {
+            background-color: #e52d2d;
+        }
+
+        .stat-icon.gray {
+            background-color: #8e8e8e;
+        }
+
+        .stat-item p {
+            margin: 5px 0 0 0;
+            color: #5c5e62;
+            font-size: 0.9rem;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 650ms cubic-bezier(.2, .9, .2, 1), transform 650ms cubic-bezier(.2, .9, .2, 1);
+            will-change: transform, opacity;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        .btn-ink {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-ink::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.25);
+            transform: translate(-50%, -50%) scale(0);
+            border-radius: 50%;
+            transition: transform 450ms cubic-bezier(.2, .9, .2, 1), opacity 450ms ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .btn-ink:active::after {
+            transform: translate(-50%, -50%) scale(40);
+            opacity: 1;
+            transition: transform 450ms cubic-bezier(.2, .9, .2, 1), opacity 450ms ease;
+        }
+
+        .card-tilt {
+            transform: perspective(900px) rotateX(0deg) rotateY(0deg);
+            transition: transform 260ms cubic-bezier(.2, .9, .2, 1);
+            will-change: transform;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 10px 20px;
+                height: 50px;
+                align-items: center;
+            }
+
+            .dropdown-menu {
+                top: 50px;
+            }
+
+            .header .nav {
+                display: none;
+            }
+
+            .header .right-icons a:not(:last-child) {
+                display: none;
+            }
+
+            .hero-scroller-section {
+                position: relative;
+            }
+
+            .scroll-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+
+            .scroll-btn.left {
+                left: 10px;
+            }
+
+            .scroll-btn.right {
+                right: 10px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .vehicle-item {
+                flex-basis: 45vw;
+                min-width: 150px;
+            }
+
+            .dropdown-links {
+                width: 100%;
+                border-left: none;
+                padding-left: 10px;
+                margin-left: 0;
+            }
+
+            #vehicles-dropdown-content {
+                flex-direction: column;
+            }
+
+            .card-scroller-section {
+                height: auto;
+                padding: 10vw 0;
+            }
+
+            .content {
+                flex-direction: column;
+                align-items: center;
+                overflow-x: hidden;
+            }
+
+            .card {
+                flex-basis: auto;
+                width: 90%;
+                height: 50vh;
+                margin-bottom: 20px;
+            }
+
+            .two-card-section {
+                height: auto;
+                padding: 10vw 5vw;
+            }
+
+            .card-container {
+                flex-direction: column;
+                height: auto;
+                gap: 5vw;
+            }
+
+            .two-card-section .card {
+                height: 60vh;
+            }
+
+            .footer {
+                flex-direction: column;
+                width: 90%;
+                left: 5%;
+                transform: translateX(0);
+                bottom: 10px;
+            }
+
+            .footer button {
+                text-align: center;
+            }
+
+            .find-charge-container {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .find-charge-text {
+                text-align: center;
+                max-width: 100%;
+                margin-bottom: 30px;
+            }
+
+            .find-charge-buttons {
+                justify-content: center;
+            }
+
+            .find-charge-stats {
+                justify-content: center;
+                gap: 30px;
+            }
+
+            .stat-item {
+                align-items: center;
+            }
+
+            .find-charge-section {
+                padding: 60px 20px;
+            }
+
+        }
+
+        a:focus,
+        button:focus {
+            outline: 3px solid rgba(62, 106, 225, 0.18);
+            outline-offset: 3px;
+            border-radius: 6px;
+        }
+
+        .hero-subline {
+            font-size: 0.95rem;
+            color: rgba(23, 26, 32, 0.8);
+            margin-top: 6px;
+        }
+
+        .kv {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            justify-content: center;
+            margin-top: 18px
+        }
+
+        .kv-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            padding: 12px 18px;
+            border-radius: 10px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.8), #fff);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04)
+        }
+
+        .kv-item strong {
+            font-size: 1.1rem
+        }
+
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.02));
+            margin: 28px 0;
+            width: 100%;
+        }
+
+        .cta-row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            justify-content: center
+        }
+
+        .card-label {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 600
+        }
+
+        .hero-visual {
+            position: absolute;
+            inset: 0;
+            z-index: 3;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.08
+        }
+
+        .hero-visual img {
+            width: 60%;
+            max-width: 1000px;
+            filter: grayscale(20%);
+            opacity: 0.08
+        }
+
+        .loading-fade {
+            opacity: 0;
+            transform: scale(0.998);
+            transition: opacity 600ms ease, transform 600ms ease;
+        }
+
+        .supercharger-image {
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+        }
+
+        .u-center {
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        .u-gap {
+            gap: 16px
+        }
+
+        .u-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 12px
+        }
+
+        #energy-dropdown-content {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            width: 100%;
+            max-width: 1100px;
+            padding: 20px;
+        }
+
+        .energy-showcase {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            flex-grow: 1;
+            padding-right: 2rem;
+        }
+
+        #energy-dropdown-content .energy-item,
+        #energy-dropdown-content .vehicle-item {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 280ms cubic-bezier(.2, .9, .2, 1), box-shadow 280ms ease;
+        }
+
+        #energy-dropdown-content .energy-item:hover,
+        #energy-dropdown-content .vehicle-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        #energy-dropdown-content .energy-item img,
+        #energy-dropdown-content .vehicle-item img {
+            width: 100%;
+            max-width: 200px;
+            height: 100px;
+            object-fit: contain;
+            margin-bottom: 0.5rem;
+        }
+
+        #energy-dropdown-content .energy-item h3,
+        #energy-dropdown-content .vehicle-item h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: #171a20;
+        }
+
+        #energy-dropdown-content .item-links {
+            margin-top: 0.25rem;
+        }
+
+        #energy-dropdown-content .item-links a {
+            text-decoration: underline;
+            margin: 0 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: #5c5e62;
+            transition: color 0.2s ease;
+        }
+
+        #energy-dropdown-content .item-links a:hover {
+            color: #171a20;
+            text-decoration: underline;
+        }
+
+        #energy-dropdown-content aside.sidebar-nav {
+            width: 200px;
+            flex-shrink: 0;
+            padding-left: 2rem;
+            margin-left: 2rem;
+            border-left: 1px solid #e0e0e0;
+            box-sizing: border-box;
+        }
+
+        #energy-dropdown-content aside.sidebar-nav ul {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            padding-top: 0.5rem;
+        }
+
+        #energy-dropdown-content aside.sidebar-nav a {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: #171a20;
+            transition: background-color 0.3s ease;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: block;
+            text-align: left;
+        }
+
+        #energy-dropdown-content aside.sidebar-nav a:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .maxwide {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            box-sizing: border-box
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header" id="main-header">
+        <a href="#page-top">
+            <div id="img">
+                <img src="https://pngimg.com/d/tesla_logo_PNG21.png" alt="Tesla Logo" style="height: 22px;">
+            </div>
+        </a>
+
+        <nav class="nav" id="main-nav">
+
+            <div class="nav-item">
+                <a href="#">Vehicles</a>
+                <div class="dropdown-menu" id="vehicles-dropdown">
+                    <div class="dropdown-content-wrapper" id="vehicles-dropdown-content">
+                        <main class="vehicle-showcase">
+                            <div class="vehicle-item">
+                                <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Mega-Menu-Vehicles-Model-S-New.png"
+                                    alt="Model S">
+                                <h3>Model S</h3>
+                                <div class="item-links"><a href="#">Learn</a><a href="#">Order</a></div>
+                            </div>
+                            <div class="vehicle-item">
+                                <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Mega-Menu-Vehicles-Model-3-Performance-LHD.png"
+                                    alt="Model 3">
+                                <h3>Model 3</h3>
+                                <div class="item-links"><a href="#">Learn</a><a href="#">Order</a></div>
+                            </div>
+                            <div class="vehicle-item">
+                                <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Mega-Menu-Vehicles-Model-Y-2-v2.png"
+                                    alt="Model Y">
+                                <h3>Model Y</h3>
+                                <div class="item-links"><a href="#">Learn</a><a href="#">Order</a></div>
+                            </div>
+                            <div class="vehicle-item">
+                                <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Mega-Menu-Vehicles-Model-X-New.png"
+                                    alt="Model X">
+                                <h3>Model X</h3>
+                                <div class="item-links"><a href="#">Learn</a><a href="#">Order</a></div>
+                            </div>
+                            <div class="vehicle-item">
+                                <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Mega-Menu-Vehicles-Cybertruck-1x.png"
+                                    alt="Cybertruck">
+                                <h3>Cybertruck</h3>
+                                <div class="item-links"><a href="#">Learn</a><a href="#">Order</a></div>
+                            </div>
+                        </main>
+
+                        <aside class="sidebar-nav">
+                            <ul>
+                                <li><a href="#">Current Offers</a></li>
+                                <li><a href="#">Demo Drive</a></li>
+                                <li><a href="#">Trade-In</a></li>
+                                <li><a href="#">Pre-Owned</a></li>
+                                <li><a href="#">Features</a></li>
+                                <li><a href="#">Help Me Choose</a></li>
+                                <li><a href="#">Compare</a></li>
+                                <li><a href="#">Fleet</a></li>
+                                <li><a href="#">Roadster</a></li>
+                            </ul>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-item">
+                <a href="#">Energy</a>
+                <div class="dropdown-menu" id="energy-dropdown">
+                    <div class="dropdown-content-wrapper" id="energy-dropdown-content">
+                        <main class="energy-showcase">
+                            <div class="energy-item">
+                                <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Mega-Menu-Energy-Solar-Panels.png"
+                                    alt="Solar Panel">
+                                <h3>Solar Panels</h3>
+                                <div class="item-links"><a href="#">Learn</a><a href="#">Order</a></div>
+                            </div>
+                            <div class="energy-item">
+                                <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Mega-Menu-Energy-Solar-Roof.png"
+                                    alt="Solar Roof">
+                                <h3>Solar Roof</h3>
+                                <div class="item-links"><a href="#">Learn</a><a href="#">Order</a></div>
+                            </div>
+                            <div class="energy-item">
+                                <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Mega-Menu-Energy-Powerwall-US.png"
+                                    alt="Powerwall">
+                                <h3>Powerwall</h3>
+                                <div class="item-links"><a href="#">Learn</a><a href="#">Order</a></div>
+                            </div>
+                        </main>
+                        <aside class="sidebar-nav">
+                            <ul>
+                                <li><a href="#">Why Solar</a></li>
+                                <li><a href="#">Incentives</a></li>
+                                <li><a href="#">Commercial</a></li>
+                                <li><a href="#">Utilities</a></li>
+                            </ul>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-item">
+                <a href="#">Charging</a>
+                <div class="dropdown-menu" id="charging-dropdown">
+                    <div class="dropdown-content-wrapper" style="display:flex; gap:2rem; max-width:1200px; margin:auto;">
+                        <main class="products-grid" style="display:flex; flex-wrap:wrap; flex:3;">
+                            <div class="product-item" style="flex-basis:25%; text-align:center; padding:15px;">
+                                <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto,w_220,c_scale/dpr_2.0/Mega-Menu-Charging-Charging.png"
+                                    alt="Charging">
+                                <h4>Charging</h4><a href="#">Learn</a>
+                            </div>
+                            <div class="product-item" style="flex-basis:25%; text-align:center; padding:15px;">
+                                <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto,w_220,c_scale/dpr_2.0/Mega-Menu-Charging-Home-Charging.png"
+                                    alt="Home Charging">
+                                <h4>Home Charging</h4><a href="#">Learn</a><a href="#">Shop</a>
+                            </div>
+                            <div class="product-item" style="flex-basis:25%; text-align:center; padding:15px;">
+                                <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto,w_220,c_scale/dpr_2.0/Mega-Menu-Charging-Supercharging-NA.png"
+                                    alt="Supercharging">
+                                <h4>Supercharging</h4><a href="#">Learn</a><a href="#">Find</a>
+                            </div>
+
+                            <div class="product-item" style="flex-basis:25%; text-align:center; padding:15px;">
+                                <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto,w_220,c_scale/dpr_2.0/Mega-Menu-Charging-Charging-for-Business.png"
+                                    alt="Wall Connector for Business">
+                                <h4>Wall Connector for Business</h4><a href="#">Learn</a><a href="#">Find</a>
+                            </div>
+
+                            <div class="product-item" style="flex-basis:25%; text-align:center; padding:15px;">
+                                <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto,w_220,c_scale/dpr_2.0/Mega-Menu-Charging-Supercharger-For-Business.png"
+                                    alt="Supercharger for Business">
+                                <h4>Supercharger for Business</h4><a href="#">Learn</a><a href="#">Find</a>
+                            </div>
+                        </main>
+                        <aside class="sidebar-nav" style="flex:1; padding-left:60px;">
+                            <ul style="list-style:none; padding:0;">
+                                <li><a href="#">Help Me Charge</a></li>
+                                <li><a href="#">Charging Calculator</a></li>
+                                <li><a href="#">Supercharger Voting</a></li>
+                                <li><a href="#">Host a Supercharger</a></li>
+                            </ul>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-item">
+                <a href="#">Discover</a>
+                <div class="dropdown-menu" id="discover-dropdown">
+                    <div class="dropdown-content-wrapper"
+                        style="display:flex; gap:100px; max-width:1200px; margin:auto; padding:40px 20px;">
+                        <div class="footer-column" style="min-width:200px;">
+                            <h4 style="font-size:0.9rem; color:#5c5e62;">Resources</h4>
+                            <ul style="list-style:none; padding:0;">
+                                <li><a href="#">Demo Drive</a></li>
+                                <li><a href="#">Insurance</a></li>
+                                <li><a href="#">Current Offers</a></li>
+                                <li><a href="#">Learn</a></li>
+                                <li><a href="#">Video Guides</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-column" style="min-width:200px;">
+                            <h4 style="font-size:0.9rem; color:#5c5e62;">Location Services</h4>
+                            <ul style="list-style:none; padding:0;">
+                                <li><a href="#">Find Us</a></li>
+                                <li><a href="#">Collision Centers</a></li>
+                                <li><a href="#">Certified Installers</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-column" style="min-width:200px;">
+                            <h4 style="font-size:0.9rem; color:#5c5e62;">Company</h4>
+                            <ul style="list-style:none; padding:0;">
+                                <li><a href="#">About</a></li>
+                                <li><a href="#">Careers</a></li>
+                                <li><a href="#">Investor Relations</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-item">
+                <a href="#">Shop</a>
+                <div class="dropdown-menu" id="shop-dropdown">
+                    <div class="dropdown-content-wrapper"
+                        style="display:flex; justify-content:center; flex-wrap:wrap; gap:50px; max-width:1200px; margin:auto; padding:40px 20px;">
+                        <div class="category-item" style="text-align:center; width:200px;">
+                            <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto,w_220,c_scale/dpr_2.0/Mega-Menu-Shop-Charging.png"
+                                alt="Charging">
+                            <p>Charging</p>
+                        </div>
+                        <div class="category-item" style="text-align:center; width:200px;">
+                            <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto,w_220,c_scale/dpr_2.0/Mega-Menu-Shop-Vehicle-Accessories.png"
+                                alt="Vehicle Accessories">
+                            <p>Vehicle Accessories</p>
+                        </div>
+                        <div class="category-item" style="text-align:center; width:200px;">
+                            <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto,w_220,c_scale/dpr_2.0/Mega-Menu-Shop-Vehicle-Accessories.png"
+                                alt="Apparel">
+                            <p>Apparel</p>
+                        </div>
+                        <div class="category-item" style="text-align:center; width:200px;">
+                            <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto,w_220,c_scale/dpr_2.0/Mega-Menu-Shop-Lifestyle.png"
+                                alt="Lifestyle">
+                            <p>Lifestyle</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="right-icons">
+            <a href="#">?</a>
+            <a href="#">🌐</a>
+            <a href="#">👤</a>
+        </div>
+    </div>
+
+    <section class="hero-scroller-section">
+        <div class="hero-scroll-content" id="hero-scroller">
+            <div class="full-page-section hero-slide" id="hero-slide-1"
+                style="background-image: url('https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Promo-Meet-Model-3-Desktop.jpg');">
+                <div class="hero-bg-layer" aria-hidden="true"
+                    style="background-image: url('https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Promo-Meet-Model-3-Desktop.jpg'); opacity:0.95;">
+                </div>
+                <div class="hero-dark-overlay"></div>
+                <div class="hero-text">
+                    <h1>Meet Model S </h1>
+                    <p>Electric Sports Sedan</p>
+                    <div class="hero-buttons"><a href="#" class="btn btn-primary btn-ink">Order Now</a><a href="#"
+                            class="btn btn-secondary btn-ink">Learn More</a></div>
+                </div>
+            </div>
+            <div class="full-page-section hero-slide" id="hero-slide-2"
+                style="background-image: url('https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Promo-Meet-Model-Y-Desktop.jpg');">
+                <div class="hero-bg-layer" aria-hidden="true"
+                    style="background-image: url('https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Promo-Meet-Model-Y-Desktop.jpg'); opacity:0.95;">
+                </div>
+                <div class="hero-dark-overlay"></div>
+                <div class="hero-text">
+                    <h1>Model Y</h1>
+                    <p>Electric Midsize SUV</p>
+                    <div class="hero-buttons"><a href="#" class="btn btn-primary btn-ink">Order Now</a><a href="#"
+                            class="btn btn-secondary btn-ink">Learn More</a></div>
+                </div>
+            </div>
+        </div><button class="scroll-btn left" id="scroll-left">&lt;
+        </button><button class="scroll-btn right" id="scroll-right">&gt;
+
+        </button>
+    </section>
+
+    <section class="card-scroller-section">
+        <div class="content" id="content-section">
+            <div class="card card-tilt" id="card-1">
+                <div class="card-top-text">Luxury SUV</div>
+                <div class="card-bottom-content">
+                    <h3>Model X</h3>
+                    <p>3.99% APR Available</p>
+                    <div class="card-buttons"><button class="btn btn-primary btn-ink">Order Now</button><button
+                            class="btn btn-secondary btn-ink">Learn More</button></div>
+                </div>
+            </div>
+            <div class="card card-tilt" id="card-2">
+                <div class="card-top-text">Luxury Sedan</div>
+                <div class="card-bottom-content">
+                    <h3>Model S</h3>
+                    <p>3.99% APR Available</p>
+                    <div class="card-buttons"><button class="btn btn-primary btn-ink">Order Now</button><button
+                            class="btn btn-secondary btn-ink">Learn More</button></div>
+                </div>
+            </div>
+            <div class="card card-tilt" id="card-3">
+                <div class="card-top-text">New Midsize SUV</div>
+                <div class="card-bottom-content">
+                    <h3>Model Y Standard</h3>
+                    <p>3.5% APR Available</p>
+                    <div class="card-buttons"><button class="btn btn-primary btn-ink">Order Now</button><button
+                            class="btn btn-secondary btn-ink">Learn More</button></div>
+                </div>
+            </div>
+            <div class="card card-tilt" id="card-4">
+                <div class="card-top-text">New Sport Sedan</div>
+                <div class="card-bottom-content">
+                    <h3>Model 3 Standard</h3>
+                    <p>2.5% APR Available</p>
+                    <div classs="card-buttons"><button class="btn btn-primary btn-ink">Order Now</button><button
+                            class="btn btn-secondary btn-ink">Learn More</button></div>
+                </div>
+            </div>
+            <div class="card card-tilt" id="card-5">
+                <div class="card-top-text">Midsize SUV</div>
+                <div class="card-bottom-content">
+                    <h3>Model Y Performance</h3>
+                    <p>4.0% APR Available</p>
+                    <div class="card-buttons"><button class="btn btn-primary btn-ink">Order Now</button><button
+                            class="btn btn-secondary btn-ink">Learn More</button></div>
+                </div>
+            </div>
+            <div class="card card-tilt" id="card-6">
+                <div class="card-top-text">Utility Truck</div>
+                <div class="card-bottom-content">
+                    <h3>Cybertruck</h3>
+                    <p>2.7% APR Available</p>
+                    <div class="card-buttons"><button class="btn btn-primary btn-ink">Order Now</button><button
+                            class="btn btn-secondary btn-ink">Learn More</button></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="two-card-section full-page-section">
+        <div class="card-container">
+            <div class="card left-card"><video class="video-background" autoplay loop muted playsinline>
+                    <source
+                        src="https://digitalassets.tesla.com/tesla-contents/video/upload/f_auto,q_auto/Homepage-FSD-Desktop.mp4"
+                        type="video/mp4">Your browser does not support the video tag.
+                </video>
+                <div class="card-content">
+                    <h2>Full Self-Driving (Supervised)</h2>
+                    <div class="card-buttons-inline"><a href="#" class="btn btn-primary btn-ink">Demo Drive</a><a href="#"
+                            class="btn btn-secondary-white btn-ink">Learn More</a></div>
+                </div>
+            </div>
+            <div class="card right-card"><img
+                    src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Features-Desktop.png"
+                    alt="Tesla Features" class="image-background">
+                <div class="card-content">
+                    <h2>Features That Come Standard</h2>
+                    <div class="card-buttons-inline"><a href="#" class="btn btn-primary btn-ink">Discover</a></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="find-charge-section fade-in">
+        <div class="find-charge-container">
+            <div class="find-charge-text">
+                <h2>Find Your Charge</h2>
+                <p>View the network of Tesla Superchargers and Destination Chargers available near you.</p>
+                <div class="find-charge-buttons">
+                    <a href="#" class="btn-charge btn-charge-dark btn-ink">View Network</a>
+                    <a href="#" class="btn-charge btn-charge-light btn-ink">Learn More</a>
+                </div>
+            </div>
+            <div class="find-charge-stats">
+                <div class="stat-item">
+                    <div class="stat-header">
+                        <h3>33,943</h3>
+                        <span class="stat-icon red">⚡</span>
+                    </div>
+                    <p>Superchargers</p>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-header">
+                        <h3>10,454</h3>
+                        <span class="stat-icon gray">🔌</span>
+                    </div>
+                    <p>Destination Chargers</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="card-scroller-section" id="hero-solar-panels">
+        <div class="content" id="energy-content-section">
+
+            <div class="card card-tilt" id="card-solar-panels">
+                <div class="card-bottom-content">
+                    <h3>Solar Panels</h3>
+                    <p>Use Solar Energy to Power Your Home and Charge Your Tesla</p>
+                    <div class="card-buttons">
+                        <button class="btn btn-primary btn-ink">Order Now</button>
+                        <button class="btn btn-secondary btn-ink">Learn More</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-tilt" id="card-powerwall">
+                <div class="card-bottom-content">
+                    <h3>Powerwall</h3>
+                    <p>Keep Your Lights On During Outages</p>
+                    <div class="card-buttons">
+                        <button class="btn btn-primary btn-ink">Order Now</button>
+                        <button class="btn btn-secondary btn-ink">Learn More</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-tilt" id="card-solar-roof">
+                <div class="card-bottom-content">
+                    <h3>Solar Roof</h3>
+                    <p>Generate Clean Energy With Your Roof</p>
+                    <div class="card-buttons">
+                        <button class="btn btn-primary btn-ink">Order Now</button>
+                        <button class="btn btn-secondary btn-ink">Learn More</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-tilt" id="card-megapack">
+                <div class="card-bottom-content">
+                    <h3>Megapack</h3>
+                    <p>Massive Batteries for Massive Energy Support</p>
+                    <div class="card-buttons">
+                        <button class="btn btn-primary btn-ink">Order Now</button>
+                        <button class="btn btn-secondary btn-ink">Learn More</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="footer"><button>Ask a Question "Compare Model 3 and Model Y" </button><button>Schedule a Drive
+            Today</button></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', () => {
+
+        const scroller = document.getElementById('hero-scroller');
+        const scrollLeftBtn = document.getElementById('scroll-left');
+        const scrollRightBtn = document.getElementById('scroll-right');
+        const slides = document.querySelectorAll('.hero-slide');
+
+        if (scroller && scrollLeftBtn && scrollRightBtn && slides.length > 1) {
+
+            let currentSlide = 0;
+            let heroInterval;
+
+            const updateHeroScroll = (index) => {
+                const slideWidth = scroller.offsetWidth;
+
+                if (scroller.scrollTo) {
+                    scroller.scrollTo({
+                        left: slideWidth * index, behavior: 'smooth'
+                    });
+                }
+
+                else {
+                    scroller.scrollLeft = slideWidth * index;
+                }
+
+                currentSlide = index;
+            }
+
+                ;
+
+            const nextSlide = () => {
+                let next = (currentSlide + 1) % slides.length;
+                updateHeroScroll(next);
+            }
+
+                ;
+
+            const prevSlide = () => {
+                let prev = (currentSlide - 1 + slides.length) % slides.length;
+                updateHeroScroll(prev);
+            }
+
+                ;
+
+            const startHeroScroll = () => {
+                clearInterval(heroInterval);
+                heroInterval = setInterval(nextSlide, 5000);
+            }
+
+                ;
+
+            scrollRightBtn.addEventListener('click', () => {
+                nextSlide();
+                startHeroScroll();
+            });
+
+            scrollLeftBtn.addEventListener('click', () => {
+                prevSlide();
+                startHeroScroll();
+            });
+
+            startHeroScroll();
+        }
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        document.querySelectorAll('.hero-slide').forEach((slide, idx) => {
+            const heading = slide.querySelector('.hero-text h1');
+            const para = slide.querySelector('.hero-text p');
+            const buttons = slide.querySelector('.hero-buttons');
+
+            if (heading) {
+                gsap.fromTo(heading, {
+                    y: 30, opacity: 0
+                }
+
+                    , {
+
+                        y: 0, opacity: 1, duration: 1.0, ease: 'power3.out',
+                        scrollTrigger: {
+                            trigger: slide, start: 'top 40%', end: '+=200', toggleActions: 'play none none reverse'
+                        }
+                    });
+            }
+
+            if (para) {
+                gsap.fromTo(para, {
+                    y: 30, opacity: 0
+                }
+
+                    , {
+
+                        y: 0, opacity: 1, duration: 1.0, ease: 'power3.out', delay: 0.12,
+                        scrollTrigger: {
+                            trigger: slide, start: 'top 40%', end: '+=180', toggleActions: 'play none none reverse'
+                        }
+                    });
+            }
+
+            if (buttons) {
+                gsap.fromTo(buttons, {
+                    y: 30, opacity: 0
+                }
+
+                    , {
+
+                        y: 0, opacity: 1, duration: 0.9, ease: 'power3.out', delay: 0.25,
+                        scrollTrigger: {
+                            trigger: slide, start: 'top 40%', end: '+=160', toggleActions: 'play none none reverse'
+                        }
+                    });
+            }
+        });
+
+        gsap.to('.hero-bg-layer', {
+
+            backgroundPositionY: '20%',
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '.hero-scroller-section',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: 0.8
+            }
+        });
+
+        const fadeEls = document.querySelectorAll('.fade-in');
+
+        fadeEls.forEach(el => {
+            gsap.fromTo(el, {
+                y: 40, opacity: 0
+            }
+
+                , {
+
+                    y: 0, opacity: 1, duration: 0.85, ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: el, start: 'top 80%', toggleActions: 'play none none reverse'
+                    }
+                });
+        });
+
+        const tiltCards = document.querySelectorAll('.card.card-tilt');
+
+        tiltCards.forEach(card => {
+            card.addEventListener('mousemove', (ev) => {
+                const rect = card.getBoundingClientRect();
+                const px = (ev.clientX - rect.left) / rect.width;
+                const py = (ev.clientY - rect.top) / rect.height;
+                const rx = (py - 0.5) * 8;
+                const ry = (px - 0.5) * -10;
+
+                card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(6px)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+
+        document.querySelectorAll('.btn-ink').forEach(btn => {
+            btn.addEventListener('pointerdown', (e) => {
+                const r = btn.getBoundingClientRect();
+                const ripple = document.createElement('span');
+                const size = Math.max(r.width, r.height) * 1.2;
+                ripple.style.position = 'absolute';
+                ripple.style.left = (e.clientX - r.left - size / 2) + 'px';
+                ripple.style.top = (e.clientY - r.top - size / 2) + 'px';
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(255,255,255,0.12)';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.pointerEvents = 'none';
+                ripple.style.transition = 'transform 600ms cubic-bezier(.2,.9,.2,1), opacity 600ms ease';
+                btn.style.position = 'relative';
+                btn.appendChild(ripple);
+                requestAnimationFrame(() => ripple.style.transform = 'scale(1)');
+
+                setTimeout(() => {
+                    ripple.style.opacity = '0';
+                }
+
+                    , 380);
+
+                setTimeout(() => {
+                    if (ripple && ripple.parentNode) ripple.parentNode.removeChild(ripple);
+                }
+
+                    , 900);
+            });
+        });
+
+        (function headerScroll() {
+            let last = window.pageYOffset || document.documentElement.scrollTop;
+            let ticking = false;
+            const header = document.getElementById('main-header');
+
+            window.addEventListener('scroll', () => {
+                const current = window.pageYOffset || document.documentElement.scrollTop;
+
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        if (current > last && current > 120) {
+                            header.classList.add('hidden');
+                        }
+
+                        else {
+                            header.classList.remove('hidden');
+                        }
+
+                        last = current <= 0 ? 0 : current;
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }
+
+                , {
+                    passive: true
+                });
+        })();
+
+        gsap.utils.toArray('.card').forEach((c, i) => {
+            gsap.fromTo(c, {
+                y: 40, opacity: 0, scale: 0.996
+            }
+
+                , {
+
+                    y: 0, opacity: 1, scale: 1, duration: 0.9, ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: c, start: 'top 85%', toggleActions: 'play none none reverse'
+                    }
+                });
+        });
+
+        const footer = document.querySelector('.footer');
+
+        footer.addEventListener('mouseenter', () => {
+            footer.style.transform = 'translateY(-4px)';
+            footer.style.boxShadow = '0 18px 40px rgba(0,0,0,0.08)';
+        });
+
+        footer.addEventListener('mouseleave', () => {
+            footer.style.transform = '';
+            footer.style.boxShadow = '';
+        });
+
+        const mapImg = document.querySelector('.supercharger-image');
+
+        if (mapImg) {
+            gsap.to(mapImg, {
+
+                yPercent: 6,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: mapImg,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 0.8
+                }
+            });
+        }
+
+        window.addEventListener('resize', () => {
+            if (scroller) {
+                const idx = Math.round(scroller.scrollLeft / scroller.offsetWidth) || 0;
+
+                scroller.scrollTo({
+                    left: scroller.offsetWidth * idx
+                });
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (!['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+                if (e.key === 'ArrowRight') {
+                    scrollRightBtn && scrollRightBtn.click();
+                }
+
+                else if (e.key === 'ArrowLeft') {
+                    scrollLeftBtn && scrollLeftBtn.click();
+                }
+
+                else if (e.key === 'Home') {
+                    scroller && scroller.scrollTo({
+                        left: 0, behavior: 'smooth'
+                    });
+                }
+            }
+        });
+
+        gsap.to('.hero-buttons .btn', {
+            scale: 1.03,
+            duration: 1.8,
+            yoyo: true,
+            repeat: -1,
+            ease: 'sine.inOut',
+            stagger: 0.12,
+            paused: false
+        });
+
+        gsap.utils.toArray('.hero-bg-layer').forEach((layer, idx) => {
+            gsap.to(layer, {
+                scale: 1.01, duration: 8 + idx, yoyo: true, repeat: -1, ease: 'sine.inOut', opacity: 0.98
+            });
+        });
+
+        let ticking = false;
+
+        window.addEventListener('scroll', function () {
+            if (!ticking) {
+                window.requestAnimationFrame(function () {
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }
+
+            , {
+                passive: true
+            });
+
+        document.querySelectorAll('.fade-in').forEach((el) => {
+            const io = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        io.unobserve(entry.target);
+                    }
+                });
+            }
+
+                , {
+                    threshold: 0.18
+                });
+            io.observe(el);
+        });
+
+    });
+    </script>
+</body>
+
+</html>

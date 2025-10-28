@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tesla Navigation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background: #f4f4f4;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 40px;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9999;
+            height: 52px;
+            transition: transform 300ms cubic-bezier(.2, .9, .2, 1);
+            backdrop-filter: blur(6px);
+        }
+
+        .header.hidden {
+            transform: translateY(-110%);
+        }
+
+        .logo {
+            width: 100px;
+            height: auto;
+        }
+
+        .logo img {
+            height: 14px;
+            width: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .nav {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-item > a {
+            text-decoration: none;
+            color: #171a20;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 8px 12px;
+            border-radius: 4px;
+            display: block;
+            transition: background 180ms ease;
+        }
+
+        .nav-item > a:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .right-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .right-icons a {
+            text-decoration: none;
+            color: #171a20;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background 180ms ease;
+        }
+
+        .right-icons a:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        /* Dropdown Styling */
+        .dropdown-menu {
+            position: fixed;
+            top: 52px;
+            left: 0;
+            width: 100%;
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+            pointer-events: none;
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            background-color: #fff;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            min-height: 250px;
+            transform: translateY(-8px);
+        }
+
+        .nav-item:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        #vehicles-dropdown.dropdown-menu {
+            padding-top: 20px;
+            padding-bottom: 20px;
+            min-height: 450px;
+        }
+
+        .dropdown-content-wrapper {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            max-width: 1400px;
+            text-align: left;
+        }
+
+        /* Vehicles Dropdown */
+        .vehicle-showcase {
+            flex-grow: 1;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 2rem;
+        }
+
+        .vehicle-item {
+            text-align: center;
+        }
+
+        .vehicle-item img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            max-width: 220px;
+        }
+
+        .vehicle-item h3 {
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #171a20;
+        }
+
+        .item-links a {
+            text-decoration: underline;
+            margin: 0 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #5c5e62;
+            transition: color 0.2s ease;
+        }
+
+        .item-links a:hover {
+            color: #171a20;
+        }
+
+        .sidebar-nav {
+            width: 200px;
+            flex-shrink: 0;
+            margin-left: 3rem;
+            padding-top: 1rem;
+            border-left: 1px solid #e0e0e0;
+            padding-left: 2rem;
+        }
+
+        .sidebar-nav ul {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .sidebar-nav a {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: #171a20;
+            transition: background-color 0.3s ease;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: block;
+        }
+
+        .sidebar-nav a:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        /* Energy Dropdown */
+        .energy-showcase {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            flex-grow: 1;
+            padding-right: 2rem;
+        }
+
+        .energy-item {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .energy-item img {
+            width: 100%;
+            max-width: 200px;
+            height: 100px;
+            object-fit: contain;
+            margin-bottom: 0.5rem;
+        }
+
+        .energy-item h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: #171a20;
+        }
+
+        /* Charging Dropdown */
+        .charging-columns {
+            display: flex;
+            gap: 3rem;
+            justify-content: center;
+        }
+
+        .dropdown-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 15px;
+        }
+
+        .dropdown-column img {
+            width: 180px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .dropdown-column a {
+            text-decoration: none;
+            color: #171a20;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        /* Demo Content Area */
+        .demo-area {
+            margin-top: 80px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .demo-area h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #171a20;
+            margin-bottom: 20px;
+        }
+
+        .demo-area p {
+            font-size: 1.1rem;
+            color: #5c5e62;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .header {
+                padding: 10px 20px;
+                height: 50px;
+            }
+
+            .dropdown-menu {
+                top: 50px;
+            }
+
+            .nav {
+                display: none;
+            }
+
+            .right-icons a:not(:last-child) {
+                display: none;
+            }
+
+            .vehicle-showcase {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .energy-showcase {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .sidebar-nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header" id="main-header">
+        <a href="#page-top">
+            <div class="logo">
+                <img src="https://pngimg.com/d/tesla_logo_PNG21.png" alt="Tesla Logo">
+            </div>
+        </a>
+        
+        <nav class="nav" id="main-nav">
+            <!-- Vehicles Dropdown -->
+            <div class="nav-item">
+                <a href="#">Vehicles</a>
+                <div class="dropdown-menu" id="vehicles-dropdown">
+                    <div class="dropdown-content-wrapper">
+                        <main class="vehicle-showcase">
+                            <div class="vehicle-item">
+                                <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto,w_220,c_scale/dpr_2.0/Mega-Menu-Vehicles-Model-S-New.png" alt="Model S">
+                                <h3>Model S</h3>
+                                <div class="item-links">
+                                    <a href="#">Learn</a>
+                                    <a href="#">Order</a>
+                                </div>
+                            </div>
+                            <div class="vehicle-item">
+                                <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto,w_220,c_scale/dpr_2.0/Mega-Menu-Vehicles-Model-3-Performance-LHD.png" alt="Model 3">
+                                <h3>Model 3</h3>
+                                <div class="item-links">
+                                    <a href="#">Learn</a>
+                                    <a href="#">Order</a>
+                                </div>
+                            </div>
+                            <div class="vehicle-item">
+                                <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto,w_220,c_scale/dpr_2.0/Mega-Menu-Vehicles-Model-Y-2-v2.png" alt="Model Y">
+                                <h3>Model Y</h3>
+                                <div class="item-links">
+                                    <a href="#">Learn</a>
+                                    <a href="#">Order</a>
+                                </div>
+                            </div>
+                            <div class="vehicle-item">
+                                <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto,w_220,c_scale/dpr_2.0/Mega-Menu-Vehicles-Model-X-New.png" alt="Model X">
+                                <h3>Model X</h3>
+                                <div class="item-links">
+                                    <a href="#">Learn</a>
+                                    <a href="#">Order</a>
+                                </div>
+                            </div>
+                            <div class="vehicle-item">
+                                <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto,w_220,c_scale/dpr_2.0/Mega-Menu-Vehicles-Cybertruck-1x.png" alt="Cybertruck">
+                                <h3>Cybertruck</h3>
+                                <div class="item-links">
+                                    <a href="#">Learn</a>
+                                    <a href="#">Order</a>
+                                </div>
+                            </div>
+                            <div class="vehicle-item">
+                                <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto,w_220,c_scale/dpr_2.0/Mega-Menu-Vehicles-Inventory.png" alt="Inventory">
+                                <h3>Inventory</h3>
+                                <div class="item-links">
+                                    <a href="#">New</a>
+                                    <a href="#">Pre-Owned</a>
+                                </div>
+                            </div>
+                        </main>
+                        <aside class="sidebar-nav">
+                            <ul>
+                                <li><a href="#">Current Offers</a></li>
+                                <li><a href="#">Demo Drive</a></li>
+                                <li><a href="#">Trade-In</a></li>
+                                <li><a href="#">Pre-Owned</a></li>
+                                <li><a href="#">Features</a></li>
+                                <li><a href="#">Help Me Choose</a></li>
+                                <li><a href="#">Compare</a></li>
+                                <li><a href="#">Workshops</a></li>
+                                <li><a href="#">Help Me Charge</a></li>
+                                <li><a href="#">Fleet</a></li>
+                                <li><a href="#">Semi</a></li>
+                                <li><a href="#">Roadster</a></li>
+                            </ul>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Energy Dropdown -->
+            <div class="nav-item">
+                <a href="#">Energy</a>
+                <div class="dropdown-menu" id="energy-dropdown">
+                    <div class="dropdown-content-wrapper">
+                        <main class="energy-showcase">
+                            <div class="energy-item">
+                                <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto,w_220,c_scale/dpr_2.0/Mega-Menu-Energy-Solar-Panels.png" alt="Solar Panels">
+                                <h3>Solar Panels</h3>
+                                <div class="item-links">
+                                    <a href="#">Learn</a>
+                                    <a href="#">Order</a>
+                                </div>
+                            </div>
+                            <div class="energy-item">
+                                <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto,w_220,c_scale/dpr_2.0/Mega-Menu-Energy-Solar-Roof.png" alt="Solar Roof">
+                                <h3>Solar Roof</h3>
+                                <div class="item-links">
+                                    <a href="#">Learn</a>
+                                    <a href="#">Order</a>
+                                </div>
+                            </div>
+                            <div class="energy-item">
+                                <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto,w_220,c_scale/dpr_2.0/Mega-Menu-Energy-Powerwall-US.png" alt="Powerwall">
+                                <h3>Powerwall</h3>
+                                <div class="item-links">
+                                    <a href="#">Learn</a>
+                                    <a href="#">Order</a>
+                                </div>
+                            </div>
+                            <div class="energy-item">
+                                <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto,w_220,c_scale/dpr_2.0/Mega-Menu-Energy-Megapack.png" alt="Megapack">
+                                <h3>Megapack</h3>
+                                <div class="item-links">
+                                    <a href="#">Learn</a>
+                                    <a href="#">Order</a>
+                                </div>
+                            </div>
+                        </main>
+                        <aside class="sidebar-nav">
+                            <ul>
+                                <li><a href="#">Schedule a Consultation</a></li>
+                                <li><a href="#">Why Solar</a></li>
+                                <li><a href="#">Incentives</a></li>
+                                <li><a href="#">Support</a></li>
+                                <li><a href="#">Partner with Tesla</a></li>
+                                <li><a href="#">Commercial</a></li>
+                                <li><a href="#">Utilities</a></li>
+                            </ul>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charging Dropdown -->
+            <div class="nav-item">
+                <a href="#">Charging</a>
+                <div class="dropdown-menu">
+                    <div class="dropdown-content-wrapper charging-columns">
+                        <div class="dropdown-column">
+                            <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto:best/Mega-Menu-Charging-Home-Charging" alt="Home Charging">
+                            <a href="#">Home Charging</a>
+                        </div>
+                        <div class="dropdown-column">
+                            <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto:best/Mega-Menu-Charging-Supercharging" alt="Supercharging">
+                            <a href="#">Supercharging</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Discover -->
+            <div class="nav-item">
+                <a href="#">Discover</a>
+            </div>
+
+            <!-- Shop -->
+            <div class="nav-item">
+                <a href="#">Shop</a>
+            </div>
+        </nav>
+
+        <div class="right-icons">
+            <a href="#">?</a>
+            <a href="#">🌐</a>
+            <a href="#">👤</a>
+        </div>
+    </div>
+
+    <!-- Demo Content Area -->
+    <div class="demo-area">
+        <h1>Tesla Navigation Bar</h1>
+        <p>Hover over "Vehicles", "Energy", or "Charging" to see the dropdown menus. Scroll down to see the header hide behavior.</p>
+        <div style="height: 200vh; padding-top: 100px;">
+            <p style="color: #999;">Scroll to test the header behavior...</p>
+        </div>
+    </div>
+
+    <script>
+        // Header scroll behavior
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            const header = document.getElementById('main-header');
+            
+            if (currentScroll > lastScroll && currentScroll > 120) {
+                header.classList.add('hidden');
+            } else {
+                header.classList.remove('hidden');
+            }
+            lastScroll = currentScroll <= 0 ? 0 : currentScroll;
+        }, { passive: true });
+    </script>
+</body>
+</html>

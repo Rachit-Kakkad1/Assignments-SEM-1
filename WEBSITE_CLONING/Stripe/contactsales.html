@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stripe</title>
+    <link rel="stylesheet" href="contactsales.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="page-header">
+        <svg class="header-logo" width="60" height="25" viewBox="0 0 60 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M59.1053 9.93924C59.1114 9.96645 59.1174 10.0043 59.1174 10.0422C59.1174 10.4122 58.8273 10.7091 58.3932 10.7091H51.7736V14.9258C51.7736 15.2957 51.4836 15.5896 51.0495 15.5896C50.6155 15.5896 50.3254 15.2996 50.3254 14.9298V10.7091H48.2878V14.9258C48.2878 15.2957 47.9978 15.5896 47.5637 15.5896C47.1297 15.5896 46.8396 15.3036 46.8396 14.9338V9.93924C46.8396 9.56533 47.1217 9.27533 47.5558 9.27333H51.0495C51.4836 9.27333 51.7736 9.56923 51.7736 9.93924V9.93924H58.3932C58.8273 9.93924 59.1093 9.94314 59.1053 9.93924Z" fill="#635BFF"></path>
+            <path d="M44.9888 9.27333H41.2489C40.8149 9.27333 40.5288 9.56533 40.5288 9.93924V15.5896H38.5906V9.93924C38.5906 9.56533 38.3045 9.27333 37.8705 9.27333H34.1306C33.6966 9.27333 33.4105 9.56533 33.4105 9.93924V15.5896H31.4723V9.93924C31.4723 9.56533 31.1862 9.27333 30.7522 9.27333H27.0123C26.5783 9.27333 26.2922 9.56533 26.2922 9.93924V15.5896H24.354V9.93924C24.354 9.56533 24.068 9.27333 23.6339 9.27333H19.894C19.46 9.27333 19.1739 9.56533 19.1739 9.93924V17.5148C19.1739 17.8847 19.46 18.1786 19.894 18.1786H23.6339C24.068 18.1786 24.354 17.8887 24.354 17.5187V17.5148H26.2922V17.5187C26.2922 17.8887 26.5783 18.1786 27.0123 18.1786H30.7522C31.1862 18.1786 31.4723 17.8887 31.4723 17.5187V17.5148H33.4105V17.5187C33.4105 17.8887 33.6966 18.1786 34.1306 18.1786H37.8705C38.3045 18.1786 38.5906 17.8887 38.5906 17.5187V17.5148H40.5288V17.5187C40.5288 17.8887 40.8149 18.1786 41.2489 18.1786H44.9888C45.4228 18.1786 45.7089 17.8887 45.7089 17.5187V9.93924C45.7089 9.56533 45.4228 9.27333 44.9888 9.27333Z" fill="#635BFF"></Dath>
+            <path d="M17.1561 0.410156H13.4162C13.2052 0.410156 13.0139 0.506065 12.887 0.670845L7.76678 7.91585V0.98047C7.76678 0.610561 7.47672 0.316652 7.04266 0.316652H3.30277C2.8687 0.316652 2.5826 0.606652 2.5826 0.976561V17.5148C2.5826 17.8847 2.8687 18.1786 3.30277 18.1786H7.04266C7.47672 18.1786 7.76678 17.8887 7.76678 17.5187V10.5834L12.887 17.8245C13.0139 17.9932 13.2052 18.0852 13.4162 18.0852H17.1561C17.5902 18.0852 17.8763 17.7952 17.8763 17.4253C17.8763 17.2335 17.8037 17.0495 17.6728 16.9069L11.758 9.27133L17.6728 1.63574C17.8037 1.49315 17.8763 1.30915 17.8763 1.11733C17.8763 0.747423 17.5902 0.410156 17.1561 0.410156Z" fill="#635BFF"></path>
+            <path d="M59.5898 17.5187C59.5898 17.8887 59.3037 18.1786 58.8697 18.1786H55.1298C54.6957 18.1786 54.4096 17.8887 54.4096 17.5187V0.976561C54.4096 0.606652 54.6957 0.316652 55.1298 0.316652H58.8697C59.3037 0.316652 59.5898 0.606652 59.5898 0.976561V17.5187Z" fill="#635BFF"></path>
+        </svg>
+        <a href="#" class="header-link">Sign up &gt;</a>
+    </header>
+
+    <main>
+        <div class="signup-card">
+            <h1>Let's get you to the right place</h1>
+            <p class="subtitle">We just need a few quick details.</p>
+
+            <form>
+                <div class="form-group">
+                    <label for="email">Work email</label>
+                    <input type="email" id="email" placeholder="jane@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="country">Country/Region</label>
+                    <select id="country" name="country">
+                        <option value="india">India</option>
+                        <option value="usa">United States</option>
+                        <option value="uk">United Kingdom</option>
+                        <option value="canada">Canada</option>
+                    </select>
+                </div>
+
+                <p class="info-text" id="india-info">
+                    We're now available by invite only in India, and are currently only supporting businesses with a focus on international expansion.
+                </p>
+
+                <p class="info-text">
+                    Please fill out this form, and we'll reach out to you if we're able to support you. If not, we'll be in touch when we're ready to open up access more broadly soon.
+                </p>
+
+                <button type="submit" class="btn-continue">Continue &gt;</button>
+            </form>
+        </div>
+    </main>
+
+    <footer class="page-footer">
+        <div class="footer-left">
+          
+            <a href="#">Visit our full website &gt;</a>
+        </div>
+        <div class="footer-right">
+            <a href="#">Privacy & terms</a>
+            <span>© 2025 Stripe, Inc.</span>
+        </div>
+    </footer>
+
+    <script src="contactsales.js"></script>
+</body>
+</html>
