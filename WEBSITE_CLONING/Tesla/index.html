@@ -7,7 +7,7 @@
     <title>Tesla</title>
     <style>
         html {
-            scroll-snap-type: y mandatory;
+            scroll-snap-type: y proximity;
             scroll-behavior: smooth;
         }
 
@@ -298,7 +298,7 @@
             justify-content: flex-start;
             align-items: center;
             position: relative;
-            scroll-snap-align: start none;
+            scroll-snap-align: start;
             padding-top: 15vh;
             padding-bottom: 10vh;
             box-sizing: border-box;
@@ -691,61 +691,82 @@
         }
 
         #map-section {
-            background-image: url('https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Map-Desktop-NA.png');
+            background-image: url('https://i.imgur.com/K1H9r4r.png');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            width: 100vw;
             color: black;
+            display: flex;
+            flex-direction: column;
             justify-content: flex-start;
+            align-items: flex-start;
+            padding-top: 15vh;
+            padding-left: 5vw;
+            box-sizing: border-box;
+            scroll-snap-align: start;
+            position: relative;
         }
 
-        .section-content-map {
+        #map-section .section-content-map {
             text-align: left;
-            padding-left: 3vw;
+            z-index: 5;
+            color: #171a20;
         }
 
-        .section-content-map h2 {
-            font-size: 2.5rem;
+        #map-section .section-content-map h2 {
+            font-size: 2.8rem;
+            font-weight: 600;
+            margin: 0 0 10px 0;
         }
 
-        .section-content-map .btn {
+        #map-section .section-content-map p {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        #map-section .section-content-map .btn {
             text-decoration: none;
-            padding: 8px 30px;
-            border: 2px solid black;
-            color: black;
+            padding: 10px 30px;
+            border: 2px solid #171a20;
+            color: #171a20;
             border-radius: 5px;
             font-weight: 500;
             background-color: transparent;
             cursor: pointer;
             font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        #map-section .section-content-map .btn:hover {
+            background-color: rgba(23, 26, 32, 0.05);
         }
 
         .footer {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10;
+            width: 100%;
+            padding: 30px 20px;
+            box-sizing: border-box;
+            background-color: #fff;
+            text-align: center;
             display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
             gap: 15px;
-            padding: 8px;
-            background: #ffffff;
-            border-radius: 5px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            white-space: nowrap;
-            transition: transform 220ms ease, box-shadow 220ms ease;
+            font-size: 0.85rem;
+            color: #5c5e62;
+            border-top: 1px solid #e5e5e5;
         }
 
-        .footer button {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            background-color: transparent;
-            color: #393c41;
-            font-size: 0.9rem;
-            font-weight: 500;
+        .footer a {
+            color: #5c5e62;
+            text-decoration: none;
+            transition: color 0.2s ease;
         }
 
-        .footer button:hover {
-            background-color: #f0f0ff;
+        .footer a:hover {
+            color: #171a20;
         }
 
         .find-charge-section {
@@ -757,6 +778,7 @@
             box-sizing: border-box;
             transition: transform 330ms ease, opacity 300ms ease;
             overflow: hidden;
+            scroll-snap-align: start;
         }
 
         .find-charge-container {
@@ -918,6 +940,66 @@
             will-change: transform;
         }
 
+        #fixed-actions {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10000;
+            display: flex;
+            gap: 15px;
+            padding: 0;
+            box-sizing: border-box;
+            justify-content: center;
+            width: auto;
+            max-width: 90%;
+        }
+
+        #fixed-actions .action-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 15px;
+            border-radius: 6px;
+            background-color: #f4f4f4;
+            color: #1c1e21;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid #d3d3d3;
+            cursor: pointer;
+            transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+            min-height: 44px;
+            flex-shrink: 0;
+        }
+
+        #fixed-actions .action-button:hover {
+            background-color: #e8e8e8;
+            border-color: #c9c9c9;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        #fixed-actions .action-button.ask-question {
+            width: 300px;
+            justify-content: space-between;
+            padding-right: 10px;
+        }
+
+        #fixed-actions .action-button .icon {
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+
+        #fixed-actions .action-button .arrow-icon {
+            margin-left: auto;
+            font-size: 1.2rem;
+            color: #888;
+        }
+
+        #fixed-actions .action-button.schedule-drive {
+            min-width: 200px;
+        }
+
         @media (max-width: 768px) {
             .header {
                 padding: 10px 20px;
@@ -1010,14 +1092,11 @@
 
             .footer {
                 flex-direction: column;
-                width: 90%;
-                left: 5%;
-                transform: translateX(0);
-                bottom: 10px;
+                padding: 20px;
             }
 
-            .footer button {
-                text-align: center;
+            .footer a {
+                margin: 5px 0;
             }
 
             .find-charge-container {
@@ -1049,6 +1128,36 @@
                 padding: 60px 20px;
             }
 
+            #map-section {
+                padding-top: 10vh;
+                padding-left: 5vw;
+                align-items: center;
+                text-align: center;
+            }
+
+            #map-section .section-content-map {
+                text-align: center;
+                padding-left: 0;
+                max-width: 90%;
+            }
+
+            #map-section .section-content-map h2 {
+                font-size: 2rem;
+            }
+
+            #map-section .section-content-map p {
+                font-size: 0.95rem;
+            }
+
+            #fixed-actions {
+                flex-direction: column;
+                bottom: 10px;
+            }
+
+            #fixed-actions .action-button {
+                width: 90%;
+                max-width: 350px;
+            }
         }
 
         a:focus,
@@ -1129,11 +1238,6 @@
             opacity: 0;
             transform: scale(0.998);
             transition: opacity 600ms ease, transform 600ms ease;
-        }
-
-        .supercharger-image {
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
         }
 
         .u-center {
@@ -1363,7 +1467,8 @@
             <div class="nav-item">
                 <a href="#">Charging</a>
                 <div class="dropdown-menu" id="charging-dropdown">
-                    <div class="dropdown-content-wrapper" style="display:flex; gap:2rem; max-width:1200px; margin:auto;">
+                    <div class="dropdown-content-wrapper"
+                        style="display:flex; gap:2rem; max-width:1200px; margin:auto;">
                         <main class="products-grid" style="display:flex; flex-wrap:wrap; flex:3;">
                             <div class="product-item" style="flex-basis:25%; text-align:center; padding:15px;">
                                 <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto,w_220,c_scale/dpr_2.0/Mega-Menu-Charging-Charging.png"
@@ -1505,10 +1610,8 @@
                             class="btn btn-secondary btn-ink">Learn More</a></div>
                 </div>
             </div>
-        </div><button class="scroll-btn left" id="scroll-left">&lt;
-        </button><button class="scroll-btn right" id="scroll-right">&gt;
-
-        </button>
+        </div><button class="scroll-btn left" id="scroll-left">&lt;</button>
+        <button class="scroll-btn right" id="scroll-right">&gt;</button>
     </section>
 
     <section class="card-scroller-section">
@@ -1545,7 +1648,7 @@
                 <div class="card-bottom-content">
                     <h3>Model 3 Standard</h3>
                     <p>2.5% APR Available</p>
-                    <div classs="card-buttons"><button class="btn btn-primary btn-ink">Order Now</button><button
+                    <div class="card-buttons"><button class="btn btn-primary btn-ink">Order Now</button><button
                             class="btn btn-secondary btn-ink">Learn More</button></div>
                 </div>
             </div>
@@ -1572,25 +1675,34 @@
 
     <section class="two-card-section full-page-section">
         <div class="card-container">
-            <div class="card left-card"><video class="video-background" autoplay loop muted playsinline>
+            <div class="card left-card">
+                <video class="video-background" autoplay loop muted playsinline>
                     <source
                         src="https://digitalassets.tesla.com/tesla-contents/video/upload/f_auto,q_auto/Homepage-FSD-Desktop.mp4"
-                        type="video/mp4">Your browser does not support the video tag.
+                        type="video/mp4">
                 </video>
                 <div class="card-content">
                     <h2>Full Self-Driving (Supervised)</h2>
-                    <div class="card-buttons-inline"><a href="#" class="btn btn-primary btn-ink">Demo Drive</a><a href="#"
-                            class="btn btn-secondary-white btn-ink">Learn More</a></div>
+                    <div class="card-buttons-inline"><a href="#" class="btn btn-primary btn-ink">Demo Drive</a><a
+                            href="#" class="btn btn-secondary-white btn-ink">Learn More</a></div>
                 </div>
             </div>
-            <div class="card right-card"><img
-                    src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Features-Desktop.png"
+            <div class="card right-card">
+                <img src="https://digitalassets.tesla.com/tesla-contents/image/upload/f_auto,q_auto/Homepage-Features-Desktop.png"
                     alt="Tesla Features" class="image-background">
                 <div class="card-content">
                     <h2>Features That Come Standard</h2>
                     <div class="card-buttons-inline"><a href="#" class="btn btn-primary btn-ink">Discover</a></div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <section id="map-section">
+        <div class="section-content-map fade-in">
+            <h2>Find a Charging Location</h2>
+            <p>View the network of Tesla Superchargers and Destination Chargers available near you.</p>
+            <a href="#" class="btn btn-ink">View Network</a>
         </div>
     </section>
 
@@ -1625,7 +1737,6 @@
 
     <section class="card-scroller-section" id="hero-solar-panels">
         <div class="content" id="energy-content-section">
-
             <div class="card card-tilt" id="card-solar-panels">
                 <div class="card-bottom-content">
                     <h3>Solar Panels</h3>
@@ -1636,7 +1747,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="card card-tilt" id="card-powerwall">
                 <div class="card-bottom-content">
                     <h3>Powerwall</h3>
@@ -1647,7 +1757,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="card card-tilt" id="card-solar-roof">
                 <div class="card-bottom-content">
                     <h3>Solar Roof</h3>
@@ -1658,7 +1767,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="card card-tilt" id="card-megapack">
                 <div class="card-bottom-content">
                     <h3>Megapack</h3>
@@ -1669,354 +1777,180 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </section>
 
-    <div class="footer"><button>Ask a Question "Compare Model 3 and Model Y" </button><button>Schedule a Drive
-            Today</button></div>
+    <footer class="footer">
+        <span>Tesla © 2025</span>
+        <a href="#">Privacy & Legal</a>
+        <a href="#">Vehicle Recalls</a>
+        <a href="#">Contact</a>
+        <a href="#">News</a>
+        <a href="#">Get Updates</a>
+        <a href="#">Locations</a>
+        <a href="#">Learn</a>
+    </footer>
+
+    <div id="fixed-actions">
+        <button class="action-button ask-question">
+            <span class="icon">💬</span>
+            Ask a Question "What's Dog Mode?"
+            <span class="arrow-icon">⬆</span>
+        </button>
+        <button class="action-button schedule-drive">
+            <span class="icon">🎧</span>
+            Schedule a Drive Today
+        </button>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script>document.addEventListener('DOMContentLoaded', () => {
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
 
-        const scroller = document.getElementById('hero-scroller');
-        const scrollLeftBtn = document.getElementById('scroll-left');
-        const scrollRightBtn = document.getElementById('scroll-right');
-        const slides = document.querySelectorAll('.hero-slide');
+            const scroller = document.getElementById('hero-scroller');
+            const scrollLeftBtn = document.getElementById('scroll-left');
+            const scrollRightBtn = document.getElementById('scroll-right');
+            const slides = document.querySelectorAll('.hero-slide');
 
-        if (scroller && scrollLeftBtn && scrollRightBtn && slides.length > 1) {
+            if (scroller && scrollLeftBtn && scrollRightBtn && slides.length > 1) {
 
-            let currentSlide = 0;
-            let heroInterval;
+                let currentSlide = 0;
+                let heroInterval;
 
-            const updateHeroScroll = (index) => {
-                const slideWidth = scroller.offsetWidth;
+                const updateHeroScroll = (index) => {
+                    const slideWidth = scroller.offsetWidth;
 
-                if (scroller.scrollTo) {
-                    scroller.scrollTo({
-                        left: slideWidth * index, behavior: 'smooth'
-                    });
-                }
+                    if (scroller.scrollTo) {
+                        scroller.scrollTo({
+                            left: slideWidth * index,
+                            behavior: 'smooth'
+                        });
+                    } else {
+                        scroller.scrollLeft = slideWidth * index;
+                    }
 
-                else {
-                    scroller.scrollLeft = slideWidth * index;
-                }
+                    currentSlide = index;
+                };
 
-                currentSlide = index;
-            }
+                const nextSlide = () => {
+                    let next = (currentSlide + 1) % slides.length;
+                    updateHeroScroll(next);
+                };
 
-                ;
+                const prevSlide = () => {
+                    let prev = (currentSlide - 1 + slides.length) % slides.length;
+                    updateHeroScroll(prev);
+                };
 
-            const nextSlide = () => {
-                let next = (currentSlide + 1) % slides.length;
-                updateHeroScroll(next);
-            }
+                const startHeroScroll = () => {
+                    clearInterval(heroInterval);
+                    heroInterval = setInterval(nextSlide, 5000);
+                };
 
-                ;
+                scrollRightBtn.addEventListener('click', () => {
+                    nextSlide();
+                    startHeroScroll();
+                });
 
-            const prevSlide = () => {
-                let prev = (currentSlide - 1 + slides.length) % slides.length;
-                updateHeroScroll(prev);
-            }
+                scrollLeftBtn.addEventListener('click', () => {
+                    prevSlide();
+                    startHeroScroll();
+                });
 
-                ;
-
-            const startHeroScroll = () => {
-                clearInterval(heroInterval);
-                heroInterval = setInterval(nextSlide, 5000);
-            }
-
-                ;
-
-            scrollRightBtn.addEventListener('click', () => {
-                nextSlide();
                 startHeroScroll();
-            });
+            }
 
-            scrollLeftBtn.addEventListener('click', () => {
-                prevSlide();
-                startHeroScroll();
-            });
+            gsap.registerPlugin(ScrollTrigger);
 
-            startHeroScroll();
-        }
+            document.querySelectorAll('.hero-slide').forEach((slide, idx) => {
+                const heading = slide.querySelector('.hero-text h1');
+                const para = slide.querySelector('.hero-text p');
+                const buttons = slide.querySelector('.hero-buttons');
 
-        gsap.registerPlugin(ScrollTrigger);
-
-        document.querySelectorAll('.hero-slide').forEach((slide, idx) => {
-            const heading = slide.querySelector('.hero-text h1');
-            const para = slide.querySelector('.hero-text p');
-            const buttons = slide.querySelector('.hero-buttons');
-
-            if (heading) {
-                gsap.fromTo(heading, {
-                    y: 30, opacity: 0
-                }
-
-                    , {
-
+                if (heading) {
+                    gsap.fromTo(heading, { y: 30, opacity: 0 }, {
                         y: 0, opacity: 1, duration: 1.0, ease: 'power3.out',
                         scrollTrigger: {
                             trigger: slide, start: 'top 40%', end: '+=200', toggleActions: 'play none none reverse'
                         }
                     });
-            }
-
-            if (para) {
-                gsap.fromTo(para, {
-                    y: 30, opacity: 0
                 }
 
-                    , {
-
+                if (para) {
+                    gsap.fromTo(para, { y: 30, opacity: 0 }, {
                         y: 0, opacity: 1, duration: 1.0, ease: 'power3.out', delay: 0.12,
                         scrollTrigger: {
                             trigger: slide, start: 'top 40%', end: '+=180', toggleActions: 'play none none reverse'
                         }
                     });
-            }
-
-            if (buttons) {
-                gsap.fromTo(buttons, {
-                    y: 30, opacity: 0
                 }
 
-                    , {
-
+                if (buttons) {
+                    gsap.fromTo(buttons, { y: 30, opacity: 0 }, {
                         y: 0, opacity: 1, duration: 0.9, ease: 'power3.out', delay: 0.25,
                         scrollTrigger: {
                             trigger: slide, start: 'top 40%', end: '+=160', toggleActions: 'play none none reverse'
                         }
                     });
-            }
-        });
+                }
+            });
 
-        gsap.to('.hero-bg-layer', {
+            gsap.to('.hero-bg-layer', {
+                backgroundPositionY: '20%',
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '.hero-scroller-section',
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: 0.8
+                }
+            });
 
-            backgroundPositionY: '20%',
-            ease: 'none',
-            scrollTrigger: {
-                trigger: '.hero-scroller-section',
-                start: 'top top',
-                end: 'bottom top',
-                scrub: 0.8
-            }
-        });
+            const fadeEls = document.querySelectorAll('.fade-in');
 
-        const fadeEls = document.querySelectorAll('.fade-in');
-
-        fadeEls.forEach(el => {
-            gsap.fromTo(el, {
-                y: 40, opacity: 0
-            }
-
-                , {
-
+            fadeEls.forEach(el => {
+                gsap.fromTo(el, { y: 40, opacity: 0 }, {
                     y: 0, opacity: 1, duration: 0.85, ease: 'power3.out',
                     scrollTrigger: {
                         trigger: el, start: 'top 80%', toggleActions: 'play none none reverse'
                     }
                 });
-        });
-
-        const tiltCards = document.querySelectorAll('.card.card-tilt');
-
-        tiltCards.forEach(card => {
-            card.addEventListener('mousemove', (ev) => {
-                const rect = card.getBoundingClientRect();
-                const px = (ev.clientX - rect.left) / rect.width;
-                const py = (ev.clientY - rect.top) / rect.height;
-                const rx = (py - 0.5) * 8;
-                const ry = (px - 0.5) * -10;
-
-                card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(6px)`;
             });
 
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = '';
-            });
-        });
+            const tiltCards = document.querySelectorAll('.card.card-tilt');
 
-        document.querySelectorAll('.btn-ink').forEach(btn => {
-            btn.addEventListener('pointerdown', (e) => {
-                const r = btn.getBoundingClientRect();
-                const ripple = document.createElement('span');
-                const size = Math.max(r.width, r.height) * 1.2;
-                ripple.style.position = 'absolute';
-                ripple.style.left = (e.clientX - r.left - size / 2) + 'px';
-                ripple.style.top = (e.clientY - r.top - size / 2) + 'px';
-                ripple.style.width = ripple.style.height = size + 'px';
-                ripple.style.borderRadius = '50%';
-                ripple.style.background = 'rgba(255,255,255,0.12)';
-                ripple.style.transform = 'scale(0)';
-                ripple.style.pointerEvents = 'none';
-                ripple.style.transition = 'transform 600ms cubic-bezier(.2,.9,.2,1), opacity 600ms ease';
-                btn.style.position = 'relative';
-                btn.appendChild(ripple);
-                requestAnimationFrame(() => ripple.style.transform = 'scale(1)');
+            tiltCards.forEach(card => {
+                card.addEventListener('mousemove', (ev) => {
+                    const rect = card.getBoundingClientRect();
+                    const px = (ev.clientX - rect.left) / rect.width;
+                    const py = (ev.clientY - rect.top) / rect.height;
+                    const rx = (py - 0.5) * 8;
+                    const ry = (px - 0.5) * -10;
 
-                setTimeout(() => {
-                    ripple.style.opacity = '0';
-                }
-
-                    , 380);
-
-                setTimeout(() => {
-                    if (ripple && ripple.parentNode) ripple.parentNode.removeChild(ripple);
-                }
-
-                    , 900);
-            });
-        });
-
-        (function headerScroll() {
-            let last = window.pageYOffset || document.documentElement.scrollTop;
-            let ticking = false;
-            const header = document.getElementById('main-header');
-
-            window.addEventListener('scroll', () => {
-                const current = window.pageYOffset || document.documentElement.scrollTop;
-
-                if (!ticking) {
-                    window.requestAnimationFrame(() => {
-                        if (current > last && current > 120) {
-                            header.classList.add('hidden');
-                        }
-
-                        else {
-                            header.classList.remove('hidden');
-                        }
-
-                        last = current <= 0 ? 0 : current;
-                        ticking = false;
-                    });
-                    ticking = true;
-                }
-            }
-
-                , {
-                    passive: true
+                    card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(6px)`;
                 });
-        })();
 
-        gsap.utils.toArray('.card').forEach((c, i) => {
-            gsap.fromTo(c, {
-                y: 40, opacity: 0, scale: 0.996
-            }
-
-                , {
-
-                    y: 0, opacity: 1, scale: 1, duration: 0.9, ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: c, start: 'top 85%', toggleActions: 'play none none reverse'
-                    }
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = '';
                 });
-        });
-
-        const footer = document.querySelector('.footer');
-
-        footer.addEventListener('mouseenter', () => {
-            footer.style.transform = 'translateY(-4px)';
-            footer.style.boxShadow = '0 18px 40px rgba(0,0,0,0.08)';
-        });
-
-        footer.addEventListener('mouseleave', () => {
-            footer.style.transform = '';
-            footer.style.boxShadow = '';
-        });
-
-        const mapImg = document.querySelector('.supercharger-image');
-
-        if (mapImg) {
-            gsap.to(mapImg, {
-
-                yPercent: 6,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: mapImg,
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: 0.8
-                }
-            });
-        }
-
-        window.addEventListener('resize', () => {
-            if (scroller) {
-                const idx = Math.round(scroller.scrollLeft / scroller.offsetWidth) || 0;
-
-                scroller.scrollTo({
-                    left: scroller.offsetWidth * idx
-                });
-            }
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (!['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
-                if (e.key === 'ArrowRight') {
-                    scrollRightBtn && scrollRightBtn.click();
-                }
-
-                else if (e.key === 'ArrowLeft') {
-                    scrollLeftBtn && scrollLeftBtn.click();
-                }
-
-                else if (e.key === 'Home') {
-                    scroller && scroller.scrollTo({
-                        left: 0, behavior: 'smooth'
-                    });
-                }
-            }
-        });
-
-        gsap.to('.hero-buttons .btn', {
-            scale: 1.03,
-            duration: 1.8,
-            yoyo: true,
-            repeat: -1,
-            ease: 'sine.inOut',
-            stagger: 0.12,
-            paused: false
-        });
-
-        gsap.utils.toArray('.hero-bg-layer').forEach((layer, idx) => {
-            gsap.to(layer, {
-                scale: 1.01, duration: 8 + idx, yoyo: true, repeat: -1, ease: 'sine.inOut', opacity: 0.98
-            });
-        });
-
-        let ticking = false;
-
-        window.addEventListener('scroll', function () {
-            if (!ticking) {
-                window.requestAnimationFrame(function () {
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        }
-
-            , {
-                passive: true
             });
 
-        document.querySelectorAll('.fade-in').forEach((el) => {
-            const io = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        io.unobserve(entry.target);
-                    }
+            document.querySelectorAll('.btn-ink').forEach(btn => {
+                btn.addEventListener('pointerdown', (e) => {
+                    const r = btn.getBoundingClientRect();
+                    const ripple = document.createElement('span');
+                    const size = Math.max(r.width, r.height) * 2;
+                    ripple.style.width = ripple.style.height = `${size}px`;
+                    ripple.style.left = `${e.clientX - r.left - size / 2}px`;
+                    ripple.style.top = `${e.clientY - r.top - size / 2}px`;
+                    ripple.classList.add('ripple');
+                    const oldRipple = btn.querySelector('.ripple');
+                    if (oldRipple) oldRipple.remove();
+                    btn.appendChild(ripple);
                 });
-            }
-
-                , {
-                    threshold: 0.18
-                });
-            io.observe(el);
+            });
         });
-
-    });
     </script>
 </body>
 
