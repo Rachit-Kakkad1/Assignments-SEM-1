@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Crypto.com — Sign In / Sign Up</title>
+  <link rel="stylesheet" href="signin.css" />
+</head>
+<body>
+  <!-- fixed top logo -->
+  <header class="site-header">
+    <img class="main-logo" src="https://mkt-site-asset.crypto.com/assets/logo/crypto-com.svg" alt="crypto.com" />
+  </header>
+
+  <!-- main two-panel container -->
+  <main class="wrap">
+    <section class="card left-card" aria-labelledby="auth-heading">
+      <div class="card-inner">
+
+        <!-- main tabs -->
+        <div class="main-tabs" role="tablist" aria-label="Auth tabs">
+          <button class="main-tab active" data-main="login" type="button">Log In</button>
+          <button class="main-tab" data-main="signup" type="button">Sign Up</button>
+        </div>
+
+        <!-- LOGIN PANEL -->
+        <div class="panel-content active" id="login">
+
+          <!-- login sub-options -->
+          <nav class="sub-options" aria-label="Login options">
+            <a href="#" class="sub-link active" data-sub="qr">QR Code</a>
+            <a href="#" class="sub-link" data-sub="passkey">Passkey</a>
+            <a href="#" class="sub-link" data-sub="email">Email</a>
+          </nav>
+
+          <!-- QR CONTENT -->
+          <div class="sub-panel active" id="qr">
+            <p class="muted">Scan with your phone camera or the Crypto.com App to login instantly.</p>
+
+            <div class="qr-row">
+              <img class="qr-image" src="https://i.imgur.com/X7pLZbC.png" alt="QR code" />
+              <div class="video-wrap">
+                <video class="side-video" autoplay muted loop playsinline>
+                  <source src="https://static2.crypto.com/auth-portal/assets/gif-images/2kjrnuePlCVE0qg7tWWTp.webm" type="video/webm">
+                  <!-- fallback -->
+                </video>
+              </div>
+            </div>
+
+            <div class="steps">
+              <strong>Scan with App:</strong>
+              <ol>
+                <li>Open the Crypto.com App</li>
+                <li>Tap Menu &gt; Settings &gt; QR Code Scanner</li>
+                <li>Scan the QR code above</li>
+              </ol>
+            </div>
+          </div>
+
+          <!-- PASSKEY CONTENT -->
+          <div class="sub-panel" id="passkey">
+            <p class="muted">Use your registered passkey to securely log in without a password.</p>
+            <button class="primary-btn full">Continue with Passkey</button>
+          </div>
+
+          <!-- EMAIL CONTENT -->
+          <div class="sub-panel" id="email">
+            <p class="muted">Enter your email address to log in.</p>
+            <form class="email-form" onsubmit="return false;">
+              <input class="input" type="email" placeholder="Enter your email address" required />
+              <button class="primary-btn full" type="submit">Log In</button>
+            </form>
+
+            <div class="or-divider"><span>or</span></div>
+
+            <div class="social-stack">
+              <button class="social google full" onclick="alert('Google placeholder')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/480px-Google_%22G%22_logo.svg.png" alt="G" /> Continue with Google
+              </button>
+              <button class="social apple full" onclick="alert('Apple placeholder')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="A" /> Continue with Apple
+              </button>
+            </div>
+
+            <p class="note">By continuing, you agree to our <a href="#">Privacy Notice</a>.</p>
+          </div>
+
+        </div>
+
+        <!-- SIGNUP PANEL -->
+        <div class="panel-content" id="signup">
+          <h2 class="section-title">Account Type</h2>
+
+          <div class="account-type">
+            <label class="acct-card selected">
+              <input type="radio" name="acct" checked />
+              <div class="icon">👤</div>
+              <div class="txt">
+                <div class="title">Individual</div>
+                <div class="sub muted">For retail users</div>
+              </div>
+            </label>
+
+            <label class="acct-card">
+              <input type="radio" name="acct" />
+              <div class="icon">🏢</div>
+              <div class="txt">
+                <div class="title">Business</div>
+                <div class="sub muted">For institutions</div>
+              </div>
+            </label>
+          </div>
+
+          <label class="field-label">Email</label>
+          <input class="input" type="email" placeholder="Enter your email address" />
+
+          <label class="field-label">Referral Code (Optional)</label>
+          <div class="ref-row">
+            <input class="input" placeholder="Enter referral code (optional)" />
+            <button class="small-ghost">▼</button>
+          </div>
+
+          <label class="checkbox-row">
+            <input type="checkbox" /> I'd like to receive exclusive offers and updates from Crypto.com
+          </label>
+
+          <button class="primary-btn full">Create Account</button>
+
+          <div class="or-divider"><span>or</span></div>
+
+          <div class="social-stack">
+            <button class="social google full" onclick="alert('Google placeholder')">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/480px-Google_%22G%22_logo.svg.png" alt="G" /> Continue with Google
+            </button>
+            <button class="social apple full" onclick="alert('Apple placeholder')">
+              <img src="https://pngdownload.io/wp-content/uploads/2023/12/Apple-Logo-Iconic-Tech-Brand-Symbol-PNG-Transparent-Representation-of-Innovation-and-Design-jpg.webp" alt="A" /> Continue with Apple
+            </button>
+          </div>
+
+          <p class="note small">
+            By submitting your email, you confirm you've read the relevant <a href="#">Privacy Notice</a> and opt-in to contact search.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- right promotional panel -->
+    <aside class="card right-card" aria-hidden="true">
+      <div class="promo">
+        <h1 class="promo-title">The premier crypto<br />service provider</h1>
+        <p class="promo-sub">Trusted by <strong>150+ million users</strong> globally</p>
+        <div class="promo-box">
+          <img class="promo-img" src="https://static2.crypto.com/auth-portal/assets/sign-up-banner/fyoHFojnQ5DSE-jAOwAOl.png" alt="promo" />
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <script src="signin.js"></script>
+</body>
+</html>

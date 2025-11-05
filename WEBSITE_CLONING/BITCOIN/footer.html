@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitcoin Footer Replica</title>
+
+    <style>
+       
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+          
+            font-family: 'Roboto', sans-serif;
+        }
+
+        /* FOOTER */
+        .btc-footer {
+            background: #1b1d23;
+            color: #c9c9c9;
+            padding: 60px 0 40px;
+            position: relative;
+        }
+
+        .btc-footer::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: url("https://bitcoin.org/img/hero/footer-bg.svg") no-repeat center top;
+            background-size: 120%;
+            opacity: 0.30;
+        }
+
+        .footer-wrap {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 50px;
+            padding: 0 40px;
+        }
+
+        /* COLUMN STYLES */
+        .footer-col h4 {
+            color: #ffffff;
+            margin-bottom: 12px;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .footer-col a {
+            display: block;
+            text-decoration: none;
+            color: #bdbdbd;
+            margin: 6px 0;
+            font-size: 14px;
+        }
+
+        .footer-col a:hover {
+            color: #ffffff;
+        }
+
+        /* SUPPORT SECTION */
+        .footer-logo {
+            width: 120px;
+            margin-bottom: 15px;
+        }
+
+        .support-text {
+            color: #ffffff;
+            margin: 6px 0;
+        }
+
+        .donate-btn {
+            background: #f7931a;
+            color: #fff;
+            padding: 9px 20px;
+            display: inline-block;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .donate-btn:hover {
+            background: #de7d14;
+        }
+
+        .btc-address {
+            font-size: 13px;
+            opacity: .85;
+            line-height: 1.4;
+        }
+
+        /* BOTTOM SECTION */
+        .footer-bottom {
+            max-width: 1200px;
+            margin: auto;
+            margin-top: 35px;
+            padding-top: 20px;
+            border-top: 1px solid #2e3138;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: #bfbfbf;
+        }
+
+        .status-lang {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .green-dot {
+            height: 8px;
+            width: 8px;
+            background: #25d366;
+            border-radius: 50%;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width:950px) {
+            .footer-wrap {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+        }
+
+        @media(max-width:550px) {
+            .footer-wrap {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <footer class="btc-footer">
+
+        <div class="footer-wrap">
+
+            <div class="footer-col">
+                <img src="https://bitcoin.org/img/icons/logotop.svg" class="footer-logo">
+                <p class="support-text">Support Bitcoin.org:</p>
+                <a href="#" class="donate-btn">Donate</a>
+                <p class="btc-address">bc1qp6ejw8ptj9l9pkscmlf8fhhkrjreawgpyjvtq8</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Introduction:</h4>
+                <a href="#">Individuals</a>
+                <a href="#">Businesses</a>
+                <a href="#">Developers</a>
+                <a href="#">Getting started</a>
+                <a href="#">How it works</a>
+                <a href="#">You need to know</a>
+                <a href="#">White paper</a>
+            </div>
+
+            <div class="footer-col">
+                <h4>Resources:</h4>
+                <a href="#">Resources</a>
+                <a href="#">Exchanges</a>
+                <a href="#">Community</a>
+                <a href="#">Vocabulary</a>
+                <a href="#">Events</a>
+                <a href="#">Bitcoin Core</a>
+            </div>
+
+            <div class="footer-col">
+                <h4>Participate:</h4>
+                <a href="#">Support Bitcoin</a>
+                <a href="#">Buy Bitcoin</a>
+                <a href="#">Sell Bitcoin</a>
+                <a href="#">Running a full node</a>
+                <a href="#">Development</a>
+            </div>
+
+            <div class="footer-col">
+                <h4>Other:</h4>
+                <a href="#">Avoid Scams</a>
+                <a href="#">Legal</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Press</a>
+                <a href="#">About bitcoin.org</a>
+                <a href="#">Blog</a>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>© Bitcoin Project 2009-2025 Released under the MIT license</p>
+            <div class="status-lang">
+                <span class="green-dot"></span> Network Status &nbsp;&nbsp; | &nbsp;&nbsp; English ▼
+            </div>
+        </div>
+
+    </footer>
+
+</body>
+
+</html>

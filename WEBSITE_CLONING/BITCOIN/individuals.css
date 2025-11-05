@@ -1,0 +1,161 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+
+.top-banner {
+  background-color: #f7931a;
+  text-align: center;
+  padding: 10px 0;
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 15px 60px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo img {
+  width: 28px;
+  height: 28px;
+}
+
+.logo span {
+  font-size: 28px;
+  font-weight: 700;
+  color: #333;
+}
+
+.nav-links a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+  position: relative;
+}
+
+.nav-links a:hover {
+  color: #f7931a;
+}
+
+.lang {
+  font-size: 16px;
+  color: #333;
+}
+
+
+.hero {
+  position: relative;
+  background-color: #11141d;
+  text-align: center;
+  padding: 130px 20px 100px;
+  color: white;
+}
+
+.hero h1 {
+  font-size: 42px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 20px;
+  color: #aaa;
+}
+
+.polygon {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.card {
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  padding: 40px 30px;
+  max-width: 380px;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.icon img {
+  width: 55px;
+  margin-bottom: 25px;
+}
+
+.card h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0b0b0b;
+  margin-bottom: 20px;
+}
+
+.card p {
+  color: #6f7785;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+
+.card {
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  padding: 40px 30px;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.icon img {
+  width: 55px;
+  margin-bottom: 25px;
+}
+
+.card h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0b0b0b;
+  margin-bottom: 20px;
+}
+
+.card p {
+  color: #6f7785;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.card a {
+  color: #4d9ce6;
+  text-decoration: none;
+}
+
+.card a:hover {
+  text-decoration: underline;
+}

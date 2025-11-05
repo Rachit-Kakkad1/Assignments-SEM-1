@@ -1,0 +1,556 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Open Sans", Arial, sans-serif;
+    background-color: #0b0e11;
+    color: #fff;
+}
+
+.support-banner {
+    background-color: #f7931a;
+    text-align: center;
+    padding: 8px 0;
+    color: #fff;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+nav {
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 10%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo img {
+    width: 26px;
+    height: 26px;
+}
+
+.logo span {
+    font-size: 22px;
+    font-weight: 700;
+    color: #2a2a2a;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.nav-links a {
+    color: #2a2a2a;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+    position: relative;
+}
+
+.nav-links a:hover {
+    color: #f7931a;
+}
+
+.language-select {
+    border: none;
+    background: none;
+    font-size: 15px;
+    color: #2a2a2a;
+    cursor: pointer;
+}
+
+.language-select:focus {
+    outline: none;
+}
+
+.hero-section {
+    background-image: url('https://bitcoin.org/img/hero/hero-bg.svg?1528322191');
+    background-color: #0b0e11;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center bottom;
+    padding: 100px 10% 120px;
+    text-align: center;
+    color: #fff;
+}
+
+.hero-section h1 {
+    font-size: 42px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.hero-section p {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 18px;
+    color: #bfc4ca;
+    line-height: 1.7;
+}
+
+
+@media (max-width: 900px) {
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .hero-section {
+        padding: 80px 5% 100px;
+    }
+
+    .hero-section h1 {
+        font-size: 32px;
+    }
+
+    .hero-section p {
+        font-size: 16px;
+    }
+}
+
+/* Wallet Section */
+
+.support-banner {
+    background-color: #f7931a;
+    text-align: center;
+    padding: 8px 0;
+    color: #fff;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+
+nav {
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 10%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo img {
+    width: 26px;
+    height: 26px;
+}
+
+.logo span {
+    font-size: 22px;
+    font-weight: 700;
+    color: #2a2a2a;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.nav-links a {
+    color: #2a2a2a;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+    position: relative;
+}
+
+.nav-links a:hover {
+    color: #f7931a;
+}
+
+.language-select {
+    border: none;
+    background: none;
+    font-size: 15px;
+    color: #2a2a2a;
+    cursor: pointer;
+}
+
+.language-select:focus {
+    outline: none;
+}
+
+
+.hero-section {
+    background-image: url('https://bitcoin.org/img/hero/hero-bg.svg?1528322191');
+    background-color: #0b0e11;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center bottom;
+    padding: 100px 10% 120px;
+    text-align: center;
+    color: #fff;
+}
+
+.hero-section h1 {
+    font-size: 42px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.hero-section p {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 18px;
+    color: #bfc4ca;
+    line-height: 1.7;
+}
+
+
+.wallet-section {
+    background-color: #fff;
+    color: #1b1b1b;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 100px 10%;
+    gap: 60px;
+}
+
+.wallet-section .wallet-image img {
+    width: 420px;
+    max-width: 100%;
+}
+
+.wallet-text {
+    max-width: 600px;
+}
+
+.wallet-text h2 {
+    font-size: 28px;
+    color: #f7931a;
+    margin-bottom: 18px;
+    font-weight: 600;
+}
+
+.wallet-text p {
+    font-size: 17px;
+    color: #1b1b1b;
+    line-height: 1.8;
+}
+
+.wallet-text a {
+    color: #1e90ff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.wallet-text a:hover {
+    color: #125fd1;
+}
+
+
+@media (max-width: 900px) {
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .hero-section {
+        padding: 80px 5% 100px;
+    }
+
+    .hero-section h1 {
+        font-size: 32px;
+    }
+
+    .hero-section p {
+        font-size: 16px;
+    }
+
+    .wallet-section {
+        flex-direction: column;
+        text-align: center;
+        padding: 60px 5%;
+    }
+
+    .wallet-section .wallet-image img {
+        width: 300px;
+    }
+
+    .wallet-text h2 {
+        font-size: 24px;
+    }
+
+    .wallet-text p {
+        font-size: 16px;
+    }
+}
+
+
+/* Price Section */
+
+.price-section {
+    background-color: #ffffff;
+    color: #1b1b1b;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 100px 10%;
+    gap: 60px;
+    border-top: 1px solid #e5e5e5;
+}
+
+.price-text {
+    max-width: 600px;
+}
+
+.price-text h2 {
+    font-size: 28px;
+    color: #f7931a;
+    margin-bottom: 18px;
+    font-weight: 600;
+}
+
+.price-text p {
+    font-size: 17px;
+    color: #1b1b1b;
+    line-height: 1.8;
+}
+
+.price-image img {
+    width: 420px;
+    max-width: 100%;
+}
+
+
+@media (max-width: 900px) {
+    .price-section {
+        flex-direction: column;
+        text-align: center;
+        padding: 60px 5%;
+    }
+
+    .price-image img {
+        width: 300px;
+    }
+
+    .price-text h2 {
+        font-size: 24px;
+    }
+
+    .price-text p {
+        font-size: 16px;
+    }
+}
+
+/*  */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fff;
+    color: #111;
+}
+
+.bitcoin-section {
+    width: 100%;
+    padding: 80px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.bitcoin-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    width: 90%;
+    gap: 60px;
+}
+
+.bitcoin-image {
+    width: 50%;
+    height: 380px;
+    background-image: url("https://bitcoin.org/img/icons/bitcoin-payments.svg?1760558879");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.bitcoin-content {
+    width: 50%;
+}
+
+.bitcoin-content h2 {
+    color: #ff8c00;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.bitcoin-content p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #111827;
+    margin-bottom: 16px;
+}
+
+/*  */
+
+.bitcoin-anonymous-section {
+  width: 100%;
+  padding: 80px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.bitcoin-anonymous-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  width: 90%;
+  gap: 60px;
+}
+
+.bitcoin-anonymous-content {
+  width: 50%;
+}
+
+.bitcoin-anonymous-content h2 {
+  color: #ff8c00;
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.bitcoin-anonymous-content p {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #111827;
+  margin-bottom: 16px;
+}
+
+.bitcoin-anonymous-content a {
+  color: #2b73d6;
+  text-decoration: none;
+}
+
+.bitcoin-anonymous-content a:hover {
+  text-decoration: underline;
+}
+
+.bitcoin-anonymous-image {
+  width: 50%;
+  height: 380px;
+  background-image: url("https://bitcoin.org/img/icons/not-anonymous.svg?1760558879");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/*  */
+
+.unconfirmed-section {
+  width: 100%;
+  padding: 80px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.unconfirmed-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  max-width: 1200px;
+  width: 90%;
+  gap: 60px;
+}
+
+
+.unconfirmed-table {
+  width: 50%;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+  border: 1px solid #ddd;
+}
+
+thead th {
+  background-color: #f8f8f8;
+  text-align: left;
+  padding: 14px;
+  font-weight: 600;
+}
+
+tbody td {
+  padding: 14px;
+  border-top: 1px solid #ddd;
+  vertical-align: top;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+a {
+  color: #2b73d6;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+
+.unconfirmed-content {
+  width: 50%;
+}
+
+.unconfirmed-content h2 {
+  color: #ff8c00;
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.unconfirmed-content p {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #111827;
+}
+
+.unconfirmed-content em {
+  font-style: italic;
+}

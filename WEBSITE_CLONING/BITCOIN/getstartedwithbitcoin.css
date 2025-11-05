@@ -1,0 +1,432 @@
+.top-banner {
+    background-color: #f7931a;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.navbar {
+    background-color: #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.nav-container {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 0;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 30px;
+    margin-right: 8px;
+}
+
+.logo span {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #4d4d4d;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links li {
+    color: #3a3a3a;
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.nav-links li:hover {
+    color: #f7931a;
+}
+
+.lang {
+    color: #3a3a3a;
+    font-weight: 600;
+}
+
+.hero {
+    position: relative;
+    background: url("https://bitcoin.org/img/hero/hero-bg.svg?1528322191") no-repeat center center/cover;
+    color: #fff;
+    text-align: center;
+    padding: 180px 20px 120px;
+    overflow: hidden;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(14, 17, 23, 0.6);
+    z-index: 1;
+}
+
+.hero-text {
+    position: relative;
+    z-index: 2;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.4rem;
+    color: #9b9b9b;
+    font-weight: 400;
+}
+
+.bottom-links {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    background: #fff;
+    padding: 40px 0;
+    border-top: 1px solid #e5e5e5;
+}
+
+.bottom-links a {
+    color: #999;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: color 0.3s;
+}
+
+.bottom-links a:hover {
+    color: #f7931a;
+}
+
+.container {
+    max-width: 64rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 4rem 1rem;
+}
+
+@media (min-width: 640px) {
+    .container {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        padding: 6rem 2rem;
+    }
+}
+
+.main-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    text-align: center;
+    color: #f59e0b;
+    margin-bottom: 5rem;
+}
+
+.timeline-container {
+    position: relative;
+}
+
+.timeline-container::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    height: 100%;
+    width: 2px;
+    border-left: 2px dashed #d1d5db;
+    margin-left: -1px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 5rem;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: 50%;
+    top: 0.25rem;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+.timeline-marker-inner {
+    position: relative;
+}
+
+.timeline-circle {
+    width: 2rem;
+    height: 2rem;
+    background-color: #f59e0b;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-weight: 700;
+    position: relative;
+    z-index: 10;
+}
+
+.timeline-line-h {
+    position: absolute;
+    top: 50%;
+    width: 3rem;
+    height: 2px;
+    background-color: #f59e0b;
+    transform: translateY(-50%);
+}
+
+.timeline-line-h.left {
+    right: 100%;
+}
+
+.timeline-line-h.right {
+    left: 100%;
+}
+
+.content-block {
+    width: 50%;
+}
+
+.content-block.left {
+    padding-right: 3rem;
+    text-align: right;
+}
+
+.content-block.right {
+    padding-left: 3rem;
+    margin-left: auto;
+    text-align: left;
+}
+
+.content-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.content-header.left {
+    justify-content: flex-end;
+}
+
+.content-header.right {
+    justify-content: flex-start;
+}
+
+.content-icon {
+    height: 1.25rem;
+    width: 1.25rem;
+    color: #4b5563;
+    margin-right: 0.5rem;
+}
+
+.content-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111827;
+}
+
+.content-text {
+    color: #4b5563;
+    margin-bottom: 1rem;
+}
+
+.btn {
+    background-color: #f59e0b;
+    color: #ffffff;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #d97706;
+}
+
+@media (max-width: 768px) {
+
+    .timeline-container::before {
+        left: 1.5rem;
+        margin-left: -1px;
+    }
+
+    .timeline-marker {
+        left: 1.5rem;
+    }
+
+    .timeline-line-h {
+        width: 1.5rem;
+        left: 100%;
+        right: auto;
+    }
+
+    .content-block {
+        width: auto;
+        margin-left: 4.5rem;
+        padding-left: 0;
+        padding-right: 0;
+        text-align: left;
+    }
+
+    .content-header {
+        justify-content: flex-start !important;
+    }
+}
+
+.btc-footer {
+    background: #1b1d23;
+    color: #c9c9c9;
+    padding: 60px 0 40px;
+    position: relative;
+}
+
+.btc-footer::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("https://bitcoin.org/img/hero/footer-bg.svg") no-repeat center top;
+    background-size: 120%;
+    opacity: 0.30;
+}
+
+.footer-wrap {
+    position: relative;
+    z-index: 10;
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 50px;
+    padding: 0 40px;
+}
+
+/* COLUMN STYLES */
+.footer-col h4 {
+    color: #ffffff;
+    margin-bottom: 12px;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.footer-col a {
+    display: block;
+    text-decoration: none;
+    color: #bdbdbd;
+    margin: 6px 0;
+    font-size: 14px;
+}
+
+.footer-col a:hover {
+    color: #ffffff;
+}
+
+/* SUPPORT SECTION */
+.footer-logo {
+    width: 120px;
+    margin-bottom: 15px;
+}
+
+.support-text {
+    color: #ffffff;
+    margin: 6px 0;
+}
+
+.donate-btn {
+    background: #f7931a;
+    color: #fff;
+    padding: 9px 20px;
+    display: inline-block;
+    border-radius: 4px;
+    margin: 10px 0;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.donate-btn:hover {
+    background: #de7d14;
+}
+
+.btc-address {
+    font-size: 13px;
+    opacity: .85;
+    line-height: 1.4;
+}
+
+/* BOTTOM SECTION */
+.footer-bottom {
+    max-width: 1200px;
+    margin: auto;
+    margin-top: 35px;
+    padding-top: 20px;
+    border-top: 1px solid #2e3138;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: #bfbfbf;
+}
+
+.status-lang {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.green-dot {
+    height: 8px;
+    width: 8px;
+    background: #25d366;
+    border-radius: 50%;
+}
+
+/* RESPONSIVE */
+@media(max-width:950px) {
+    .footer-wrap {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+}
+
+@media(max-width:550px) {
+    .footer-wrap {
+        grid-template-columns: 1fr;
+    }
+}
